@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import javacalendar.event.AddEventWindow;
 import javacalendar.event.ChangeEventWindow;
 import javacalendar.event.RemoveEventWindow;
-import javacalendar.minicalendar.MiniCalendarBox;
+import javacalendar.minicalendar.MiniCalBox;
 
 public class LeftBarPanel extends JPanel implements ActionListener {
     private final JButton addEventButton;
@@ -21,7 +21,7 @@ public class LeftBarPanel extends JPanel implements ActionListener {
         this.setBackground(Color.darkGray);
         this.setPreferredSize(new Dimension(210, 800));
 
-        MiniCalendarBox calendarBox = new MiniCalendarBox();
+        MiniCalBox calendarBox = new MiniCalBox();
         this.add(calendarBox);
         addEventButton = new JButton();
         changeEventButton = new JButton();

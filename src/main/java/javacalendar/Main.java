@@ -18,7 +18,6 @@ public class Main {
         mainWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         mainWindow.setResizable(false);
 
-        // 
         mainWindow.setLayout(new BorderLayout());
         addMainComponents();
 

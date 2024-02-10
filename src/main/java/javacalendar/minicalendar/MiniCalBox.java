@@ -4,6 +4,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import javacalendar.util.StringConstants;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -12,17 +14,12 @@ import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import javacalendar.util.StringConstants;
-
-public class MiniCalendarBox extends JPanel {
+public class MiniCalBox extends JPanel {
     private final JPanel internalPanel;
     private final int LABEL_HEIGHT = 16;
     private final double FONT_TO_LABEL_HEIGHT_RATIO = 0.5625;
 
-    public MiniCalendarBox() {
+    public MiniCalBox() {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.lightGray);
         this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 3));
@@ -31,7 +28,10 @@ public class MiniCalendarBox extends JPanel {
         internalPanel.setLayout(new GridLayout(7,7,2,2));   // 7x7, na górze dni tygodnia
         internalPanel.setBackground(Color.lightGray);
 
-        calendarInitializer();
+        initializeFirstRowOfLabels(StringConstants.weekdays);
+
+        MiniCalendar miniCalendar = new MiniCalendar(internalPanel);
+        miniCalendar.initializeMiniCal();
 
         this.add(internalPanel, BorderLayout.CENTER);
 
@@ -72,63 +72,63 @@ public class MiniCalendarBox extends JPanel {
         }
     }
 
-    private void calendarInitializer() {
-        // crucial calendar code below
-        GregorianCalendar gregCal = new GregorianCalendar();
-        int today = gregCal.get(Calendar.DAY_OF_MONTH);
-        int month = gregCal.get(Calendar.MONTH);
+    // private void calendarInitializer() {
+    //     // crucial calendar code below
+    //     GregorianCalendar gregCal = new GregorianCalendar();
+    //     int today = gregCal.get(Calendar.DAY_OF_MONTH);
+    //     int month = gregCal.get(Calendar.MONTH);
 
-        gregCal.set(Calendar.DAY_OF_MONTH, 1);
-        int weekday = gregCal.get(Calendar.DAY_OF_WEEK);
-        int firstDayOfWeek = gregCal.getFirstDayOfWeek();
+    //     gregCal.set(Calendar.DAY_OF_MONTH, 1);
+    //     int weekday = gregCal.get(Calendar.DAY_OF_WEEK);
+    //     int firstDayOfWeek = gregCal.getFirstDayOfWeek();
 
-        int indent = 0;
-        while (weekday != firstDayOfWeek) {
-            indent++;
-            gregCal.add(Calendar.DAY_OF_MONTH, -1);
-            weekday = gregCal.get(Calendar.DAY_OF_WEEK);
-        }
+    //     int indent = 0;
+    //     while (weekday != firstDayOfWeek) {
+    //         indent++;
+    //         gregCal.add(Calendar.DAY_OF_MONTH, -1);
+    //         weekday = gregCal.get(Calendar.DAY_OF_WEEK);
+    //     }
 
-        do {
-            gregCal.add(Calendar.DAY_OF_MONTH, 1);
-            weekday = gregCal.get(Calendar.DAY_OF_WEEK);
-        } while (weekday != firstDayOfWeek);
-        // crucial calendar code above
+    //     do {
+    //         gregCal.add(Calendar.DAY_OF_MONTH, 1);
+    //         weekday = gregCal.get(Calendar.DAY_OF_WEEK);
+    //     } while (weekday != firstDayOfWeek);
+    //     // crucial calendar code above
 
-        initializeFirstRowOfLabels(StringConstants.weekdays);
+    //     initializeFirstRowOfLabels(StringConstants.weekdays);
 
-        for (int i = 1; i <= indent; i++) {
-            internalPanel.add(new JLabel() {
-                {
-                    setBackground(Color.white);
-                    setOpaque(true);    // Make the background visible
-                    setText("");
-                }
-            });
-        }
+    //     for (int i = 1; i <= indent; i++) {
+    //         internalPanel.add(new JLabel() {
+    //             {
+    //                 setBackground(Color.white);
+    //                 setOpaque(true);    // Make the background visible
+    //                 setText("");
+    //             }
+    //         });
+    //     }
 
-        gregCal.set(Calendar.DAY_OF_MONTH, 1);
+    //     gregCal.set(Calendar.DAY_OF_MONTH, 1);
 
-        do {
-            int day = gregCal.get(Calendar.DAY_OF_MONTH);
-            if (day == today)
-                internalPanel.add(new JLabel() {
-                    {
-                        setBackground(Color.decode("#e0fff9"));
-                        setOpaque(true);    // Make the background visible
-                        setText(Integer.valueOf(day).toString());
-                    }
-                });
-            else
-                internalPanel.add(new JLabel() {
-                    {
-                        setBackground(Color.white);
-                        setOpaque(true);    // Make the background visible
-                        setText(Integer.valueOf(day).toString());
-                    }
-                });
-            gregCal.add(Calendar.DAY_OF_MONTH, 1);
+    //     do {
+    //         int day = gregCal.get(Calendar.DAY_OF_MONTH);
+    //         if (day == today)
+    //             internalPanel.add(new JLabel() {
+    //                 {
+    //                     setBackground(Color.decode("#e0fff9"));
+    //                     setOpaque(true);    // Make the background visible
+    //                     setText(Integer.valueOf(day).toString());
+    //                 }
+    //             });
+    //         else
+    //             internalPanel.add(new JLabel() {
+    //                 {
+    //                     setBackground(Color.white);
+    //                     setOpaque(true);    // Make the background visible
+    //                     setText(Integer.valueOf(day).toString());
+    //                 }
+    //             });
+    //         gregCal.add(Calendar.DAY_OF_MONTH, 1);
 
-        } while (gregCal.get(Calendar.MONTH) == month);
-    }
+    //     } while (gregCal.get(Calendar.MONTH) == month);
+    // }
 }

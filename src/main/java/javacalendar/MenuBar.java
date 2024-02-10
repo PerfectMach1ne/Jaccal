@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import javacalendar.event.AddEventWindow;
 import javacalendar.event.ChangeEventWindow;
 import javacalendar.event.RemoveEventWindow;
-import javacalendar.minicalendar.MiniCalendarPopup;
+import javacalendar.minicalendar.MiniCalPopup;
 
 public class MenuBar extends JMenuBar implements ActionListener {
     private JMenuItem calMenuItem1, calMenuItem2, calSubMenuItem1, calSubMenuItem2, calSubMenuItem3;
@@ -66,7 +66,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == calMenuItem1) {
-            new MiniCalendarPopup();
+            new MiniCalPopup();
         } else if (e.getSource() == calMenuItem2) {
             System.exit(0);
         } else if (e.getSource() == calSubMenuItem1) {
