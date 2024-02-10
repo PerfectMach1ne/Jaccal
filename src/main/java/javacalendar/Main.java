@@ -1,7 +1,6 @@
 package javacalendar;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
@@ -11,7 +10,7 @@ public class Main implements KeyListener {
     private final JFrame mainWindow;
 
     public static final int WINDOW_WIDTH = 1400;
-    public static final int WINDOW_HEIGHT = 850;
+    public static final int WINDOW_HEIGHT = 800; // Originally 850
 
     public Main() {
         try {
@@ -23,7 +22,7 @@ public class Main implements KeyListener {
         mainWindow = new JFrame("JavaCalendar");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        mainWindow.setResizable(false);
+        mainWindow.setResizable(true);
         mainWindow.addKeyListener(this);
 
         mainWindow.setLayout(new BorderLayout());
@@ -46,9 +45,7 @@ public class Main implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-      throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -58,8 +55,6 @@ public class Main implements KeyListener {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-      throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
-    }
+    public void keyReleased(KeyEvent e) {}
 
 }
