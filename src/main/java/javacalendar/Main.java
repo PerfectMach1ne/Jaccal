@@ -14,9 +14,9 @@ public class Main implements KeyListener {
 
     public Main() {
         try {
-          Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-          e.printStackTrace();
+            e.printStackTrace();
         }
 
         mainWindow = new JFrame("JavaCalendar");
@@ -49,9 +49,9 @@ public class Main implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-      if ((e.getKeyCode() == KeyEvent.VK_W) && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
-        mainWindow.dispose();
-      }
+        if ((e.getKeyCode() == KeyEvent.VK_W) && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
+            mainWindow.dispose();
+        }
     }
 
     @Override
