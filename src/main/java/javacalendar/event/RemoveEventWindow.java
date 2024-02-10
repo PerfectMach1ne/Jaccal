@@ -129,9 +129,11 @@ public class RemoveEventWindow implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            removeEventFrame.dispose();
-        }
+      if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        removeEventFrame.dispose();
+      } else if ((e.getKeyCode() == KeyEvent.VK_W) && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
+        removeEventFrame.dispose();
+      }
     }
 
     @Override

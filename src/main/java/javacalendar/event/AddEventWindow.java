@@ -314,10 +314,11 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.out.println("aaaaa");
-            addEventFrame.dispose();
-        }
+      if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+          addEventFrame.dispose();
+      } else if ((e.getKeyCode() == KeyEvent.VK_W) && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
+        addEventFrame.dispose();
+      }
     }
 
     @Override

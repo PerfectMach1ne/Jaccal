@@ -375,9 +375,11 @@ public class ChangeEventWindow implements ActionListener, MouseListener, KeyList
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            changeEventFrame.dispose();
-        }
+      if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        changeEventFrame.dispose();
+      } else if ((e.getKeyCode() == KeyEvent.VK_W) && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
+        changeEventFrame.dispose();
+      }
     }
 
     @Override
