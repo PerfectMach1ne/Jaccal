@@ -73,7 +73,7 @@ public class WeeksPanel extends JScrollPane {
 
     // Add the 7 weekdayLabels
     for (int i = 0; i < 7; i++) {
-      panel.add(setupWeekdayPanelLabels(weekdayLabelArray[i], i));
+      panel.add(setupWeekdayLabels(weekdayLabelArray[i], i));
     }
 
     return panel;
@@ -104,7 +104,7 @@ public class WeeksPanel extends JScrollPane {
     return weekdaySlice;
   }
 
-  private JLabel setupWeekdayPanelLabels(JLabel weekdayLabel, int iterator) {
+  private JLabel setupWeekdayLabels(JLabel weekdayLabel, int iterator) {
     weekdayLabel = new JLabel(StringConstants.weekdays[iterator]);
 
     weekdayLabel.setFont(new Font("Arial", Font.BOLD, 24));
