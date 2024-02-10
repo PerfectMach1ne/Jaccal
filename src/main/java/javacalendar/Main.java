@@ -11,10 +11,14 @@ public class Main {
     public static final int WINDOW_HEIGHT = 850;
 
     public Main() {
+        // Class.forName("com.mysql.cj.jdbc.Driver");
+
         mainWindow = new JFrame("JavaCalendar");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        mainWindow.setResizable(false);
 
+        // 
         mainWindow.setLayout(new BorderLayout());
         addMainComponents();
 
@@ -28,7 +32,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> { // Invoking a runnable asynchronously (the lambda is the "Runnable" class; or the run() method)
             Main window = new Main();
             window.mainWindow.setVisible(true);
         });
