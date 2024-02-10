@@ -1,10 +1,13 @@
 package javacalendar;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Main {
+public class Main implements KeyListener {
     private final JFrame mainWindow;
 
     public static final int WINDOW_WIDTH = 1400;
@@ -21,6 +24,7 @@ public class Main {
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         mainWindow.setResizable(false);
+        mainWindow.addKeyListener(this);
 
         mainWindow.setLayout(new BorderLayout());
         addMainComponents();
@@ -39,6 +43,23 @@ public class Main {
             Main window = new Main();
             window.mainWindow.setVisible(true);
         });
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+      throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+      if ((e.getKeyCode() == KeyEvent.VK_W) && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
+        mainWindow.dispose();
+      }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+      throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
     }
 
 }

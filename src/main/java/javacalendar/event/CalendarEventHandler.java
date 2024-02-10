@@ -114,7 +114,7 @@ public final class CalendarEventHandler extends WeeksPanel {
                 + Double.parseDouble(stringHours.substring(3)) / 60 ) ); // 1 + HOURS + MINUTES / 60
     }
 
-    // This Ta metoda naprawia "młotkiem" problem zbyt długich słow nie mieszczacych sie w eventDescription
+    // Ta metoda naprawia "młotkiem" problem zbyt długich słow nie mieszczacych sie w eventDescription
     public static String textBreaker(String text) {
         /* Panel length can show about 23 digits, but because character lengths in pixels may differ, text is "cut"
          * and a HTML line break is inserted at the "slicing point" after just 21 characters for safety.
