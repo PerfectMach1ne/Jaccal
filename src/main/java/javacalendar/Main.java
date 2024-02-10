@@ -11,7 +11,11 @@ public class Main {
     public static final int WINDOW_HEIGHT = 850;
 
     public Main() {
-        // Class.forName("com.mysql.cj.jdbc.Driver");
+        try {
+          Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+          e.printStackTrace();
+        }
 
         mainWindow = new JFrame("JavaCalendar");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
