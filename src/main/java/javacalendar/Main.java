@@ -1,10 +1,10 @@
 package javacalendar;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class Main implements KeyListener {
     private final JFrame mainWindow;
@@ -32,7 +32,7 @@ public class Main implements KeyListener {
     }
 
     private void addMainComponents() {
-        mainWindow.add(new WeeksPanel(), BorderLayout.CENTER);
+        mainWindow.add(new WeekViewCalendar(), BorderLayout.CENTER);
         mainWindow.add(new LeftBarPanel(), BorderLayout.WEST);
         mainWindow.setJMenuBar(new MenuBar());
     }

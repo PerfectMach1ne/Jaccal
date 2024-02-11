@@ -1,18 +1,17 @@
 package javacalendar;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneLayout;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-
 import javacalendar.util.StringConstants;
 
-public class WeeksPanel extends JScrollPane {
+public class WeekViewCalendar extends JScrollPane {
     private final int PARENT_PANEL_WIDTH = 1122;
     private final int PARENT_PANEL_HEIGHT = 730;
 
@@ -36,7 +35,7 @@ public class WeeksPanel extends JScrollPane {
     private final JLabel[] weekdayLabelArray = new JLabel[7];
     private final JLabel[] hourLabelArray = new JLabel[24];
 
-    public WeeksPanel() {
+    public WeekViewCalendar() {
         this.setLayout(new ScrollPaneLayout());
         this.setBackground(Color.gray);
 

@@ -1,14 +1,14 @@
 package javacalendar.event;
 
+import java.util.HashMap;
+
 import javax.swing.JLabel;
 import java.awt.Color;
 
-import java.util.HashMap;
-
-import javacalendar.WeeksPanel;
+import javacalendar.WeekViewCalendar;
 import javacalendar.util.Colors;
 
-public final class CalendarEventHandler extends WeeksPanel {
+public final class CalendarEventHandler extends WeekViewCalendar {
     public static HashMap<String, JLabel> eventStorage = new HashMap<>();
     public static HashMap<String, Integer> eventDays = new HashMap<>();
     public static HashMap<String, String> eventNames = new HashMap<>();
@@ -77,14 +77,14 @@ public final class CalendarEventHandler extends WeeksPanel {
                 processHoursIntoEventEndValue(eventEndHour)), eventStartHour);
         eventEndHours.put(getEventKey(day, eventLabel, processHoursIntoEventStartValue(eventStartHour),
                 processHoursIntoEventEndValue(eventEndHour)), eventEndHour);
-        WeeksPanel.weekdayPanelArray[day].revalidate();
-        WeeksPanel.weekdayPanelArray[day].repaint();
+        WeekViewCalendar.weekdayPanelArray[day].revalidate();
+        WeekViewCalendar.weekdayPanelArray[day].repaint();
     }
 
     public static void removeCalendarEventByHashKey(String key) {
         int day = Integer.parseInt(String.valueOf(key.charAt(0)));
         if (CalendarEventHandler.eventStorage.containsKey(key)) {
-            WeeksPanel.weekdayPanelArray[day].remove(eventStorage.get(key));
+            WeekViewCalendar.weekdayPanelArray[day].remove(eventStorage.get(key));
             eventStorage.remove(key);
             eventDays.remove(key);
             eventNames.remove(key);
@@ -92,8 +92,8 @@ public final class CalendarEventHandler extends WeeksPanel {
             eventColors.remove(key);
             eventStartHours.remove(key);
             eventEndHours.remove(key);
-            WeeksPanel.weekdayPanelArray[day].revalidate();
-            WeeksPanel.weekdayPanelArray[day].repaint();
+            WeekViewCalendar.weekdayPanelArray[day].revalidate();
+            WeekViewCalendar.weekdayPanelArray[day].repaint();
             System.out.println("Deleted event with key " + key);
         }
     }

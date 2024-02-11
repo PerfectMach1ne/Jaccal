@@ -1,8 +1,10 @@
 package javacalendar.event;
 
 public class Event {
+    Event() {}
+
     /*
-     * ### Classes to utilize:
+     * ## Classes to utilize:
      * # LocalDateTime
      * # DateTimeFormatter
      * ## technical properties
