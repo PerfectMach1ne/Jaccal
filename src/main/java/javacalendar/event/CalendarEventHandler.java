@@ -98,17 +98,13 @@ public final class CalendarEventHandler extends WeeksPanel {
         }
     }
 
-    // Transforms hours given as String and in hh:mm format into event box starer
-    // position
+    // Transforms hours given as String and in hh:mm format into event box starer position
     public static int processHoursIntoEventStartValue(String stringHours) {
         // odległość od napisu "00:00" od krańca poziomego JPanelu wynosi 14px
         // 29px to średnia długość JLabeli w panelu godzin
         return getEVENT_POSITION_OFFSET() + (int)Math.round(getHOUR_HEIGHT_UNIT()
-                * (Double.parseDouble(stringHours.substring(0, 2)) + Double.parseDouble(stringHours.substring(3)) / 60)); // HOURS
-                                                                                                                          // +
-                                                                                                                          // MINUTES
-                                                                                                                          // /
-                                                                                                                          // 60
+                * (Double.parseDouble(stringHours.substring(0, 2)) + Double.parseDouble(stringHours.substring(3)) / 60));
+    // HOURS + MINUTES / 60
     }
 
     // Transforms hours given as String and in hh:mm format into a parameter
@@ -126,17 +122,11 @@ public final class CalendarEventHandler extends WeeksPanel {
          * time was extended for everyone on the due date)).
          */
         return getEVENT_POSITION_OFFSET() + (int)Math.round(getHOUR_HEIGHT_UNIT()
-                * (1 + Double.parseDouble(stringHours.substring(0, 2)) + Double.parseDouble(stringHours.substring(3)) / 60)); // 1
-                                                                                                                              // +
-                                                                                                                              // HOURS
-                                                                                                                              // +
-                                                                                                                              // MINUTES
-                                                                                                                              // /
-                                                                                                                              // 60
+                * (1 + Double.parseDouble(stringHours.substring(0, 2)) + Double.parseDouble(stringHours.substring(3)) / 60));
+    // 1 + HOURS + MINUTES / 60
     }
 
-    // Ta metoda naprawia "młotkiem" problem zbyt długich słow nie mieszczacych sie
-    // w eventDescription
+    // Ta metoda naprawia "młotkiem" problem zbyt długich słow nie mieszczacych sie w eventDescription
     public static String textBreaker(String text) {
         /*
          * Panel length can show about 23 digits, but because character lengths in
