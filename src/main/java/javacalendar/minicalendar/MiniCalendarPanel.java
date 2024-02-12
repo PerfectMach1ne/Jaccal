@@ -9,6 +9,7 @@ import javacalendar.util.StringConstants;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
@@ -17,13 +18,19 @@ import java.awt.event.ComponentEvent;
 public class MiniCalendarPanel extends JPanel {
     private final int LABEL_HEIGHT = 16;
     private final double FONT_TO_LABEL_HEIGHT_RATIO = 0.5625;
+    
+    private final int PARENT_PANEL_HEIGHT = 120;
+    private final int PARENT_PANEL_WIDTH = 170; 
 
     private final JPanel internalPanel;
 
     public MiniCalendarPanel() {
-        this.setLayout(new BorderLayout());
+        //////////////////// ISSUE //////////////////
+        // I think BorderLayout is terrible for such a component. Let's try to implement GridLayout later.
+        // this.setLayout(new BorderLayout());
         this.setBackground(Color.lightGray);
-        this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 3));
+        this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+        this.setPreferredSize(new Dimension(PARENT_PANEL_WIDTH, PARENT_PANEL_HEIGHT));
 
         internalPanel = new JPanel();
         /////////////////////// BUG TO FIX ///////////////////////
@@ -31,7 +38,7 @@ public class MiniCalendarPanel extends JPanel {
         // Feb 2024 requires `rows` to be 6 instead of 7 in order to prevent the calendar from collapsing
         // Sunday into a new row, for some reason. It should be connected to what kind of month it is today,
         // also. somehow.  
-        internalPanel.setLayout(new GridLayout(6,7,2,2));   
+        internalPanel.setLayout(new GridLayout(6,7,3,3));   
         internalPanel.setBackground(Color.lightGray);
 
         initializeFirstRowOfLabels(StringConstants.weekdays);
@@ -46,9 +53,9 @@ public class MiniCalendarPanel extends JPanel {
                 for (Component c : internalPanel.getComponents()) {
                     if (c.getHeight() > LABEL_HEIGHT) {
                         int scaledFontSize = (int)Math.round(c.getHeight() * FONT_TO_LABEL_HEIGHT_RATIO);
-                        c.setFont(new Font("Arial", Font.BOLD, scaledFontSize));
+                        c.setFont(new Font("Courier New", Font.BOLD, scaledFontSize));
                     } else {
-                        c.setFont(new Font("Arial", Font.BOLD, 12));
+                        c.setFont(new Font("Courier New", Font.BOLD, 16));
                     }
                 }
                 // Use height and the fact, that:
@@ -73,6 +80,7 @@ public class MiniCalendarPanel extends JPanel {
                     setBackground(Color.decode("#a9a7ed"));
                     setOpaque(true);    // Make the background visible
                     setText(labels[finalI]);
+                    setHorizontalAlignment(CENTER);
                 }
             });
         }

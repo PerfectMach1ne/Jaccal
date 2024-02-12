@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneLayout;
 
+import javacalendar.datelogic.WeekCalendarHandler;
 import javacalendar.util.StringConstants;
 
 public class WeekViewCalendar extends JScrollPane {
@@ -101,8 +102,9 @@ public class WeekViewCalendar extends JScrollPane {
         panel.setPreferredSize(new Dimension(MONTHDAY_LABEL_PANEL_WIDTH, MONTHDAY_LABEL_PANEL_HEIGHT));
 
         // Add the 7 weekdayLabels
+        int[] monthdays = WeekCalendarHandler.getCurrentWeekWeekdays();
         for (int i = 0; i < 7; i++) {
-          panel.add(setupMonthdayLabels(monthdayLabelArray[i], i));
+          panel.add(setupMonthdayLabels(monthdayLabelArray[i], monthdays[i], i));
         }
 
         return panel;
@@ -145,8 +147,8 @@ public class WeekViewCalendar extends JScrollPane {
         return weekdayLabel;
     }
 
-    private JLabel setupMonthdayLabels(JLabel monthdayLabel, int iterator) {
-        monthdayLabel = new JLabel(Integer.toString(iterator));
+    private JLabel setupMonthdayLabels(JLabel monthdayLabel, int monthday, int iterator) {
+        monthdayLabel = new JLabel(Integer.toString(monthday));
 
         monthdayLabel.setFont(new Font("Arial", Font.BOLD, 24));
         monthdayLabel.setPreferredSize(new Dimension(MONTHDAY_LABEL_WIDTH, MONTHDAY_LABEL_HEIGHT));

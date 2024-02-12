@@ -2,16 +2,22 @@ package javacalendar.minicalendar;
 
 import javax.swing.JFrame;
 
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class MiniCalPopup implements KeyListener {
+public class MiniCalendarPopup implements KeyListener {
     private JFrame popupFrame = new JFrame();
 
-    public MiniCalPopup() {
+    private final int PARENT_PANEL_HEIGHT = 120;
+    private final int PARENT_PANEL_WIDTH = 170; 
+
+    public MiniCalendarPopup() {
         popupFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         popupFrame.setTitle("Mini calendar");
         popupFrame.setResizable(true);
+        popupFrame.setPreferredSize(new Dimension(PARENT_PANEL_WIDTH, PARENT_PANEL_HEIGHT));
+
         popupFrame.add(new MiniCalendarPanel());
         popupFrame.pack();
 
