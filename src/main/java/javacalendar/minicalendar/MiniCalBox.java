@@ -15,9 +15,10 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class MiniCalBox extends JPanel {
-    private final JPanel internalPanel;
     private final int LABEL_HEIGHT = 16;
     private final double FONT_TO_LABEL_HEIGHT_RATIO = 0.5625;
+
+    private final JPanel internalPanel;
 
     public MiniCalBox() {
         this.setLayout(new BorderLayout());
@@ -25,7 +26,11 @@ public class MiniCalBox extends JPanel {
         this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 3));
 
         internalPanel = new JPanel();
-        internalPanel.setLayout(new GridLayout(7,7,2,2));   // 7x7, na górze dni tygodnia
+        // Row count causes issues on some months, e.g.:
+        // Feb 2024 requires `rows` to be 6 instead of 7 in order to prevent the calendar from collapsing
+        // Sunday into a new row, for some reason. It should be connected to what kind of month it is today,
+        // also. somehow.  
+        internalPanel.setLayout(new GridLayout(6,7,2,2));   
         internalPanel.setBackground(Color.lightGray);
 
         initializeFirstRowOfLabels(StringConstants.weekdays);
