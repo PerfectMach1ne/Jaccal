@@ -27,7 +27,7 @@ import java.awt.event.MouseListener;
 import javacalendar.util.Colors;
 import javacalendar.util.LengthRestrictedDocument;
 import javacalendar.util.StringConstants;
-import javacalendar.util.WeekdayMethods;
+import javacalendar.util.WeekdayUtils;
 
 public class ChangeEventWindow implements ActionListener, MouseListener, KeyListener {
     private JFrame changeEventFrame = new JFrame();
@@ -92,7 +92,7 @@ public class ChangeEventWindow implements ActionListener, MouseListener, KeyList
         for (String eventName : eventNames) {
             String key = eventKeys[i];
             int day = Integer.parseInt(String.valueOf(key.charAt(0)));
-            parsedEventNames[i] = eventName + " (" + WeekdayMethods.weekdayToString(day) + ")";
+            parsedEventNames[i] = eventName + " (" + WeekdayUtils.weekdayToString(day) + ")";
             i++;
         }
 
@@ -283,7 +283,7 @@ public class ChangeEventWindow implements ActionListener, MouseListener, KeyList
         if ( e.getSource() == confirmButton ) {
             String weekdayString = weekdayComboBox.getSelectedItem().toString();
             // Check if day of the week is correct (very, very important)
-            if (WeekdayMethods.stringToWeekday(weekdayString) == -1) {
+            if (WeekdayUtils.stringToWeekday(weekdayString) == -1) {
                 JOptionPane.showMessageDialog(null, "An error occurred while parsing day of the week.",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 System.out.println("Error: String to weekday integer conversion returned -1.");
@@ -339,13 +339,13 @@ public class ChangeEventWindow implements ActionListener, MouseListener, KeyList
                         // Final end & start time formatting
                         String eventStartTime = fixedStartHours + ":" + fixedStartMinutes;
                         String eventEndTime = fixedEndHours + ":" + fixedEndMinutes;
-                        String editedEventKey = CalendarEventHandler.getEventKey(WeekdayMethods.stringToWeekday(weekdayString), eventNameTextField.getText(),
+                        String editedEventKey = CalendarEventHandler.getEventKey(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
                                 CalendarEventHandler.processHoursIntoEventStartValue(eventStartTime),
                                 CalendarEventHandler.processHoursIntoEventEndValue(eventEndTime));
                         // This condition check fixes a bug where events get added twice
                         if ( !CalendarEventHandler.eventStorage.containsKey(editedEventKey) ) {
                             // Actually add the event
-                            CalendarEventHandler.addCalendarEvent(WeekdayMethods.stringToWeekday(weekdayString), eventNameTextField.getText(),
+                            CalendarEventHandler.addCalendarEvent(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
                                     eventDescriptionTextArea.getText(), actualColor,
                                     Colors.getColorFromName(colorString).getProperTextColor(), eventStartTime, eventEndTime);
                         }

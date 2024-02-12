@@ -60,7 +60,6 @@ public class WeekViewCalendar extends JScrollPane {
         wrapperPanel.add(configWeekdayLabelViewport(weekdayLabelViewport));
         wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport));
         this.setColumnHeaderView(wrapperPanel);
-        // this.setColumnHeaderView(configWeekdayLabelViewport(weekdayLabelViewport));
         // Create and add panel for hours of the day
         this.setRowHeaderView(configHourLabelViewport(hourLabelViewport));
 

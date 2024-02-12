@@ -26,6 +26,7 @@ public class MiniCalBox extends JPanel {
         this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 3));
 
         internalPanel = new JPanel();
+        /////////////////////// BUG TO FIX ///////////////////////
         // Row count causes issues on some months, e.g.:
         // Feb 2024 requires `rows` to be 6 instead of 7 in order to prevent the calendar from collapsing
         // Sunday into a new row, for some reason. It should be connected to what kind of month it is today,
@@ -76,64 +77,4 @@ public class MiniCalBox extends JPanel {
             });
         }
     }
-
-    // private void calendarInitializer() {
-    //     // crucial calendar code below
-    //     GregorianCalendar gregCal = new GregorianCalendar();
-    //     int today = gregCal.get(Calendar.DAY_OF_MONTH);
-    //     int month = gregCal.get(Calendar.MONTH);
-
-    //     gregCal.set(Calendar.DAY_OF_MONTH, 1);
-    //     int weekday = gregCal.get(Calendar.DAY_OF_WEEK);
-    //     int firstDayOfWeek = gregCal.getFirstDayOfWeek();
-
-    //     int indent = 0;
-    //     while (weekday != firstDayOfWeek) {
-    //         indent++;
-    //         gregCal.add(Calendar.DAY_OF_MONTH, -1);
-    //         weekday = gregCal.get(Calendar.DAY_OF_WEEK);
-    //     }
-
-    //     do {
-    //         gregCal.add(Calendar.DAY_OF_MONTH, 1);
-    //         weekday = gregCal.get(Calendar.DAY_OF_WEEK);
-    //     } while (weekday != firstDayOfWeek);
-    //     // crucial calendar code above
-
-    //     initializeFirstRowOfLabels(StringConstants.weekdays);
-
-    //     for (int i = 1; i <= indent; i++) {
-    //         internalPanel.add(new JLabel() {
-    //             {
-    //                 setBackground(Color.white);
-    //                 setOpaque(true);    // Make the background visible
-    //                 setText("");
-    //             }
-    //         });
-    //     }
-
-    //     gregCal.set(Calendar.DAY_OF_MONTH, 1);
-
-    //     do {
-    //         int day = gregCal.get(Calendar.DAY_OF_MONTH);
-    //         if (day == today)
-    //             internalPanel.add(new JLabel() {
-    //                 {
-    //                     setBackground(Color.decode("#e0fff9"));
-    //                     setOpaque(true);    // Make the background visible
-    //                     setText(Integer.valueOf(day).toString());
-    //                 }
-    //             });
-    //         else
-    //             internalPanel.add(new JLabel() {
-    //                 {
-    //                     setBackground(Color.white);
-    //                     setOpaque(true);    // Make the background visible
-    //                     setText(Integer.valueOf(day).toString());
-    //                 }
-    //             });
-    //         gregCal.add(Calendar.DAY_OF_MONTH, 1);
-
-    //     } while (gregCal.get(Calendar.MONTH) == month);
-    // }
 }

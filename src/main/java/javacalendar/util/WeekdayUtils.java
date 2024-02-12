@@ -1,7 +1,7 @@
 package javacalendar.util;
 
 // A few methods to assist add, change and remove event windows in handling week days.
-public class WeekdayMethods {
+public class WeekdayUtils {
     public static int stringToWeekday(String weekday) {
         switch (weekday) {
             case "Mon":
