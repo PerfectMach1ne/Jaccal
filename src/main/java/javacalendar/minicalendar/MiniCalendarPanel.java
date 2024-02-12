@@ -4,6 +4,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import javacalendar.datelogic.MiniCalendarHandler;
 import javacalendar.util.StringConstants;
 
 import java.awt.BorderLayout;
@@ -14,13 +15,13 @@ import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-public class MiniCalBox extends JPanel {
+public class MiniCalendarPanel extends JPanel {
     private final int LABEL_HEIGHT = 16;
     private final double FONT_TO_LABEL_HEIGHT_RATIO = 0.5625;
 
     private final JPanel internalPanel;
 
-    public MiniCalBox() {
+    public MiniCalendarPanel() {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.lightGray);
         this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 3));
@@ -36,7 +37,7 @@ public class MiniCalBox extends JPanel {
 
         initializeFirstRowOfLabels(StringConstants.weekdays);
 
-        MiniCalendar miniCalendar = new MiniCalendar(internalPanel);
+        MiniCalendarHandler miniCalendar = new MiniCalendarHandler(internalPanel);
         miniCalendar.initializeMiniCal();
 
         this.add(internalPanel, BorderLayout.CENTER);

@@ -1,6 +1,7 @@
 package javacalendar.minicalendar;
 
 import javax.swing.JFrame;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -11,7 +12,7 @@ public class MiniCalPopup implements KeyListener {
         popupFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         popupFrame.setTitle("Mini calendar");
         popupFrame.setResizable(true);
-        popupFrame.add(new MiniCalBox());
+        popupFrame.add(new MiniCalendarPanel());
         popupFrame.pack();
 
         popupFrame.addKeyListener(this);

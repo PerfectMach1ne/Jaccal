@@ -1,4 +1,4 @@
-package javacalendar.minicalendar;
+package javacalendar.datelogic;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -7,11 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 
-public class MiniCalendar {
+public class MiniCalendarHandler {
     private final JPanel internalPanelL; // internalPanelLogic; like, this is a logic class. Makes sense to one of my
                                          // braincells, I guess...?
 
-    protected MiniCalendar(JPanel internalPanel) {
+    protected MiniCalendarHandler(JPanel internalPanel) {
         this.internalPanelL = internalPanel;
     }
 
