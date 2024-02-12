@@ -4,7 +4,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import javacalendar.datelogic.MiniCalendarHandler;
 import javacalendar.util.StringConstants;
 
 import java.awt.BorderLayout;

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import javax.swing.JLabel;
 import java.awt.Color;
 
-import javacalendar.WeekViewCalendar;
+import javacalendar.mainui.WeekViewCalendar;
 import javacalendar.util.Colors;
 
 public final class CalendarEventHandler extends WeekViewCalendar {

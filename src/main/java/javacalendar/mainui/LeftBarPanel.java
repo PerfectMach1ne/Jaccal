@@ -1,4 +1,4 @@
-package javacalendar;
+package javacalendar.mainui;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;

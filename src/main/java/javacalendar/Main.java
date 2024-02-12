@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import javacalendar.mainui.*; 
+
 public class Main implements KeyListener {
     private final JFrame mainWindow;
 

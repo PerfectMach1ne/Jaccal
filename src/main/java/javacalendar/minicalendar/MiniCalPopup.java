@@ -28,6 +28,8 @@ public class MiniCalPopup implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             popupFrame.dispose();
+        } else if ((e.getKeyCode() == KeyEvent.VK_W) && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
+            popupFrame.dispose();
         }
     }
 
