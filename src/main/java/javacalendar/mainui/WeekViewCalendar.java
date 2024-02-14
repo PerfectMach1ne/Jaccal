@@ -8,6 +8,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 
 import javacalendar.datelogic.WeekCalendarHandler;
@@ -39,6 +40,8 @@ public class WeekViewCalendar extends JScrollPane {
     private JPanel weekdayLabelViewport;
     private JPanel monthdayLabelViewport;
     private JPanel hourLabelViewport;
+    // This one's a static array, as it needs to be accessible by WeekCalendarHandler, so that it 
+    // can add events to it.
     public static final JPanel[] weekdayPanelArray = new JPanel[7];
     private final JLabel[] weekdayLabelArray = new JLabel[7];
     private final JLabel[] monthdayLabelArray = new JLabel[7];
@@ -63,6 +66,13 @@ public class WeekViewCalendar extends JScrollPane {
 
         this.createHorizontalScrollBar();
         this.createVerticalScrollBar();
+
+        ///// WIP /////
+        // ScrollPaneLayout corner setup
+        JPanel cornerFillerBox = new JPanel();
+        cornerFillerBox.setBackground(Color.decode("#bbbaf0"));
+        cornerFillerBox.setPreferredSize(new Dimension(4, 15));
+        this.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER, cornerFillerBox);
     }
 
     private JPanel configWeekViewport(JPanel panel) {

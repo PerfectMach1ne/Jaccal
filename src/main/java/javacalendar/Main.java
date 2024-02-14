@@ -11,7 +11,7 @@ import javacalendar.mainui.*;
 public class Main implements KeyListener {
     private final JFrame mainWindow;
 
-    public static final int WINDOW_WIDTH = 1400;
+    public static final int WINDOW_WIDTH = 1450;
     public static final int WINDOW_HEIGHT = 800; // Originally 850
 
     public Main() {

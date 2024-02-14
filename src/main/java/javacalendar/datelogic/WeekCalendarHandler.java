@@ -45,6 +45,4 @@ public class WeekCalendarHandler {
 
         return firstMonthWeekday;
     }
-
-    // a
 }

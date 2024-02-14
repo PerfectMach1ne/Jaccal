@@ -22,7 +22,7 @@ public class LeftBarPanel extends JPanel implements ActionListener {
     private final int PARENT_PANEL_HEIGHT = 800;
 
     private final Dimension TINY_RIGID_BOX_DIMENSIONS = new Dimension(PARENT_PANEL_WIDTH, 10);
-    private final Dimension HUGE_RIGID_BOX_DIMENSIONS = new Dimension(PARENT_PANEL_HEIGHT, 470);
+    private final Dimension HUGE_RIGID_BOX_DIMENSIONS = new Dimension(PARENT_PANEL_HEIGHT, 450);
 
     private JLabel displayTextDate = new JLabel();
 
@@ -37,11 +37,13 @@ public class LeftBarPanel extends JPanel implements ActionListener {
         this.setBackground(Color.darkGray);
         this.setPreferredSize(new Dimension(PARENT_PANEL_WIDTH, PARENT_PANEL_HEIGHT));
 
+        this.add(Box.createRigidArea(TINY_RIGID_BOX_DIMENSIONS));
         displayTextDate.setText(WeekCalendarHandler.getCurrentWeekDate().toString());
         displayTextDate.setFont(new Font("Courier New", Font.BOLD, 24));
         displayTextDate.setForeground(Color.WHITE);
         displayTextDate.setAlignmentX(CENTER_ALIGNMENT);
         this.add(displayTextDate);
+        this.add(Box.createRigidArea(TINY_RIGID_BOX_DIMENSIONS));
         
         MiniCalendarPanel calendarBox = new MiniCalendarPanel();
         calendarBox.setAlignmentX(CENTER_ALIGNMENT);
