@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -67,12 +70,26 @@ public class WeekViewCalendar extends JScrollPane {
         this.createHorizontalScrollBar();
         this.createVerticalScrollBar();
 
-        ///// WIP /////
         // ScrollPaneLayout corner setup
+        JPanel weekSwitchCorner = new JPanel();
+        weekSwitchCorner.setLayout(new BoxLayout(weekSwitchCorner, BoxLayout.Y_AXIS));
+        weekSwitchCorner.setBackground(Color.decode("#6a699a"));
+        for (int i = 0; i < 2; i++) {
+            weekSwitchCorner.add(Box.createRigidArea(
+                new Dimension(weekSwitchCorner.getWidth(), 12)
+            ));
+            weekSwitchCorner.add(setupWeekSwitchButtons(i));
+        }
+        this.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER, weekSwitchCorner);
+
         JPanel cornerFillerBox = new JPanel();
+        // TODO: Fill that panel with 2 labels/panels who have height of 25 each and colors of the two monthday+weekday bars.
         cornerFillerBox.setBackground(Color.decode("#bbbaf0"));
         cornerFillerBox.setPreferredSize(new Dimension(4, 15));
         this.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER, cornerFillerBox);
+
+        // TODO: Put here bottom left corner
+        // TODO: Put here bottom right corner
     }
 
     private JPanel configWeekViewport(JPanel panel) {
@@ -119,7 +136,6 @@ public class WeekViewCalendar extends JScrollPane {
 
         return panel;
     }
-
 
     private JPanel configHourLabelViewport(JPanel panel) {
         panel = new JPanel();
@@ -181,4 +197,16 @@ public class WeekViewCalendar extends JScrollPane {
 
         return hourLabel;
     }
+
+    private JButton setupWeekSwitchButtons(int iterator) {
+        JButton switchButton = new JButton();
+
+        switchButton.setText(iterator == 0 ? "<" : ">");
+        switchButton.setFont(new Font("Courier New", Font.BOLD, 18));
+        switchButton.setFocusable(false);
+        switchButton.setAlignmentX(CENTER_ALIGNMENT);
+        switchButton.setAlignmentY(CENTER_ALIGNMENT);
+        
+        return switchButton;
+    };
 }

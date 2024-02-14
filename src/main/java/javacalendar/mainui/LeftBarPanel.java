@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 import javacalendar.event.AddEventWindow;
 import javacalendar.event.ChangeEventWindow;
@@ -38,7 +39,7 @@ public class LeftBarPanel extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(PARENT_PANEL_WIDTH, PARENT_PANEL_HEIGHT));
 
         this.add(Box.createRigidArea(TINY_RIGID_BOX_DIMENSIONS));
-        displayTextDate.setText(WeekCalendarHandler.getCurrentWeekDate().toString());
+        displayTextDate.setText(LocalDate.now().toString());
         displayTextDate.setFont(new Font("Courier New", Font.BOLD, 24));
         displayTextDate.setForeground(Color.WHITE);
         displayTextDate.setAlignmentX(CENTER_ALIGNMENT);
