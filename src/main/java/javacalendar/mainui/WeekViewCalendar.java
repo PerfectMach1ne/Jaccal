@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -17,7 +19,7 @@ import javax.swing.ScrollPaneLayout;
 import javacalendar.datelogic.WeekCalendarHandler;
 import javacalendar.util.StringConstants;
 
-public class WeekViewCalendar extends JScrollPane {
+public class WeekViewCalendar extends JScrollPane implements MouseListener {
     private final int PARENT_PANEL_WIDTH = 1122;
     private final int PARENT_PANEL_HEIGHT = 780;
 
@@ -49,6 +51,7 @@ public class WeekViewCalendar extends JScrollPane {
     private final JLabel[] weekdayLabelArray = new JLabel[7];
     private final JLabel[] monthdayLabelArray = new JLabel[7];
     private final JLabel[] hourLabelArray = new JLabel[24];
+    private final JButton[] weekSwitchButtons = new JButton[2];
 
     public WeekViewCalendar() {
         this.setLayout(new ScrollPaneLayout());
@@ -199,7 +202,8 @@ public class WeekViewCalendar extends JScrollPane {
     }
 
     private JButton setupWeekSwitchButtons(int iterator) {
-        JButton switchButton = new JButton();
+        JButton switchButton = weekSwitchButtons[iterator];
+        switchButton = new JButton();
 
         switchButton.setText(iterator == 0 ? "<" : ">");
         switchButton.setFont(new Font("Courier New", Font.BOLD, 18));
@@ -208,5 +212,26 @@ public class WeekViewCalendar extends JScrollPane {
         switchButton.setAlignmentY(CENTER_ALIGNMENT);
         
         return switchButton;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if ( e.getSource() == weekSwitchButtons[0]) {
+            
+        } else if ( e.getSource() == weekSwitchButtons[1]) {
+
+        }
     };
+
+    @Override
+    public void mousePressed(MouseEvent e) {};
+
+    @Override
+    public void mouseReleased(MouseEvent e) {};
+
+    @Override
+    public void mouseEntered(MouseEvent e) {};
+
+    @Override
+    public void mouseExited(MouseEvent e) {};
 }

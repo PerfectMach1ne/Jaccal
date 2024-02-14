@@ -16,7 +16,6 @@ import javacalendar.event.AddEventWindow;
 import javacalendar.event.ChangeEventWindow;
 import javacalendar.event.RemoveEventWindow;
 import javacalendar.minicalendar.MiniCalendarPanel;
-import javacalendar.datelogic.WeekCalendarHandler;
 
 public class LeftBarPanel extends JPanel implements ActionListener {
     private final int PARENT_PANEL_WIDTH = 250;
