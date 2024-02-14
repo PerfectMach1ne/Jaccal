@@ -9,13 +9,31 @@ public class WeekCalendarHandler {
     }
 
     // Get every monthday of the current week in an array.
-    public static int[] getCurrentWeekWeekdays() {
+    public static int[] getCurrentWeekWeekdays(byte mode) {
         int[] weekdays = new int[7];
 
-        LocalDate weekDate = getLD_CurrentWeekDate();
-        for (int i = 0; i < 7; i++) {
-            weekdays[i] = weekDate.getDayOfMonth();
-            weekDate = weekDate.plusDays(1);
+        LocalDate weekDate;
+        if (mode == 0) {
+            weekDate = getLD_CurrentWeekDate();
+
+            for (int i = 0; i < 7; i++) {
+                weekdays[i] = weekDate.getDayOfMonth();
+                weekDate = weekDate.plusDays(1);
+            }
+        } else if (mode == -1) {
+            weekDate = getLD_PastWeekDate();
+
+            for (int i = 0; i < 7; i++) {
+                weekdays[i] = weekDate.getDayOfMonth();
+                weekDate = weekDate.plusDays(1);
+            }
+        } else if (mode == 1) {
+            weekDate = getLD_FutureWeekDate();
+
+            for (int i = 0; i < 7; i++) {
+                weekdays[i] = weekDate.getDayOfMonth();
+                weekDate = weekDate.plusDays(1);
+            }
         }
 
         return weekdays;

@@ -60,12 +60,12 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
         // Create and add the 7-day week display for events
         this.setViewportView(configWeekViewport(weekViewport));
         // Create and add panel for days of the week and days of the month
-        // Has to be contained within a new panel, due to column-header viewport of the ScrollPaneLayout
+        // Has to be contained within a new panel, due to column-header viewport of the ScrollPaneLayou t
         // only being able to hold one component at a time:
         JPanel wrapperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         wrapperPanel.setPreferredSize(new Dimension(WEEKDAY_LABEL_PANEL_WIDTH, 2 * MONTHDAY_LABEL_PANEL_HEIGHT));
         wrapperPanel.add(configWeekdayLabelViewport(weekdayLabelViewport));
-        wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport));
+        wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport, (byte)0));
         this.setColumnHeaderView(wrapperPanel);
         // Create and add panel for hours of the day
         this.setRowHeaderView(configHourLabelViewport(hourLabelViewport));
@@ -124,17 +124,25 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
         return panel;
     }
 
-    private JPanel configMonthdayLabelViewport(JPanel panel) {
+    private JPanel configMonthdayLabelViewport(JPanel panel, byte mode) {
         panel = new JPanel();
         
         panel.setLayout(new FlowLayout());
         panel.setBackground(Color.decode("#7574b3"));
         panel.setPreferredSize(new Dimension(MONTHDAY_LABEL_PANEL_WIDTH, MONTHDAY_LABEL_PANEL_HEIGHT));
 
+        int[] monthdays = new int[7];
         // Add the 7 weekdayLabels
-        int[] monthdays = WeekCalendarHandler.getCurrentWeekWeekdays();
+        if (mode == 0) {
+            monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)0);
+        } else if (mode == -1) {
+            monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)-1);
+        } else if (mode == 1) {
+            monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)1);
+        }
+        
         for (int i = 0; i < 7; i++) {
-          panel.add(setupMonthdayLabels(monthdayLabelArray[i], monthdays[i], i));
+            panel.add(setupMonthdayLabels(monthdayLabelArray[i], monthdays[i], i));
         }
 
         return panel;
