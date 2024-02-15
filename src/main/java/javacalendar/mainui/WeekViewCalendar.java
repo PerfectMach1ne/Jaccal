@@ -141,18 +141,19 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
 
         int[] monthdays = new int[7];
         // Add the 7 weekdayLabels
-        if (mode == 0) {
+        if (mode == (byte)0) {
             selectedDate = WeekCalendarHandler.getLD_CurrentWeekDate();
             monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)0);
-        } else if (mode == -1) {
+        } else if (mode == (byte)-1) {
             selectedDate = selectedDate.minusWeeks(1);
             monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)-1, selectedDate);
-        } else if (mode == 1) {
+        } else if (mode == (byte)1) {
             selectedDate = selectedDate.plusWeeks(1);
             monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)1, selectedDate);
         }
         
         for (int i = 0; i < 7; i++) {
+            System.out.println(monthdays[i]);
             panel.add(setupMonthdayLabels(monthdayLabelArray[i], monthdays[i], i));
         }
 
@@ -246,6 +247,7 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
             System.out.println(selectedDate);
             wrapperPanel.remove(1); // wrapperPanel contains only 2 elements, and the first is always the static weekday panel.
             wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport, (byte)-1));
+            wrapperPanel.addMouseListener(this);
             wrapperPanel.revalidate();
             wrapperPanel.repaint();
             this.revalidate();
@@ -254,6 +256,7 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
             System.out.println(selectedDate);
             wrapperPanel.remove(1); // wrapperPanel contains only 2 elements, and the first is always the static weekday panel.
             wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport, (byte)1));
+            wrapperPanel.addMouseListener(this);
             wrapperPanel.revalidate();
             wrapperPanel.repaint();
             this.revalidate();

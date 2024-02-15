@@ -11,8 +11,8 @@ public class WeekCalendarHandler {
     // Get every monthday of the current week in an array.
     public static int[] getCurrentWeekWeekdays(byte mode) {
         int[] weekdays = new int[7];
-
         LocalDate weekDate;
+
         if (mode == 0) {
             weekDate = getLD_CurrentWeekDate();
 
@@ -26,7 +26,6 @@ public class WeekCalendarHandler {
 
     public static int[] getCurrentWeekWeekdays(byte mode, LocalDate date) {
         int[] weekdays = new int[7];
-
         LocalDate weekDate;
         
         if (mode == -1) {
@@ -67,13 +66,14 @@ public class WeekCalendarHandler {
         // numberings are contained in the interval [1,7].
         //
         //  int                 LocalDate long                DayOfWeek      int         int
-        int firstMonthWeekday = localDate.minusDays(localDate.getDayOfWeek().getValue()).getDayOfMonth() + 1;
+        int firstMonthWeekday = localDate.minusDays(localDate.minusDays(1).getDayOfWeek().getValue()).getDayOfMonth();
+        // if (firstMonthWeekday == 32) firstMonthWeekday = 1;
 
         return firstMonthWeekday;
     }
 
     public static LocalDate getLD_PastWeekDate(LocalDate date) {
-        date = LocalDate.now().minusWeeks(1);
+        date = date.minusWeeks(1);
         
         int currentYear = date.getYear();
         int currentMonth = date.getMonthValue();
@@ -84,7 +84,7 @@ public class WeekCalendarHandler {
     }
 
     public static LocalDate getLD_FutureWeekDate(LocalDate date) {
-        date = LocalDate.now().plusWeeks(1);
+        date = date.plusWeeks(1);
         
         int currentYear = date.getYear();
         int currentMonth = date.getMonthValue();
