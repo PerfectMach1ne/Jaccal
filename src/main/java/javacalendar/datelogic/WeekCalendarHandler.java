@@ -20,15 +20,24 @@ public class WeekCalendarHandler {
                 weekdays[i] = weekDate.getDayOfMonth();
                 weekDate = weekDate.plusDays(1);
             }
-        } else if (mode == -1) {
-            weekDate = getLD_PastWeekDate();
+        }
+        return weekdays;
+    }
+
+    public static int[] getCurrentWeekWeekdays(byte mode, LocalDate date) {
+        int[] weekdays = new int[7];
+
+        LocalDate weekDate;
+        
+        if (mode == -1) {
+            weekDate = getLD_PastWeekDate(date);
 
             for (int i = 0; i < 7; i++) {
                 weekdays[i] = weekDate.getDayOfMonth();
                 weekDate = weekDate.plusDays(1);
             }
         } else if (mode == 1) {
-            weekDate = getLD_FutureWeekDate();
+            weekDate = getLD_FutureWeekDate(date);
 
             for (int i = 0; i < 7; i++) {
                 weekdays[i] = weekDate.getDayOfMonth();
@@ -37,6 +46,7 @@ public class WeekCalendarHandler {
         }
 
         return weekdays;
+
     }
 
     // Obtains (without Time part) current LocalDate set at the beginning of the week.
@@ -62,23 +72,23 @@ public class WeekCalendarHandler {
         return firstMonthWeekday;
     }
 
-    public static LocalDate getLD_PastWeekDate() {
-        LocalDate currentDate = LocalDate.now().minusWeeks(1);
+    public static LocalDate getLD_PastWeekDate(LocalDate date) {
+        date = LocalDate.now().minusWeeks(1);
         
-        int currentYear = currentDate.getYear();
-        int currentMonth = currentDate.getMonthValue();
-        int weekFirstMonthday = getLD_firstMonthWeekday(currentDate);
+        int currentYear = date.getYear();
+        int currentMonth = date.getMonthValue();
+        int weekFirstMonthday = getLD_firstMonthWeekday(date);
 
         // return: year, month, first day of week
         return LocalDate.of(currentYear, currentMonth, weekFirstMonthday);
     }
 
-    public static LocalDate getLD_FutureWeekDate() {
-        LocalDate currentDate = LocalDate.now().plusWeeks(1);
+    public static LocalDate getLD_FutureWeekDate(LocalDate date) {
+        date = LocalDate.now().plusWeeks(1);
         
-        int currentYear = currentDate.getYear();
-        int currentMonth = currentDate.getMonthValue();
-        int weekFirstMonthday = getLD_firstMonthWeekday(currentDate);
+        int currentYear = date.getYear();
+        int currentMonth = date.getMonthValue();
+        int weekFirstMonthday = getLD_firstMonthWeekday(date);
 
         // return: year, month, first day of week
         return LocalDate.of(currentYear, currentMonth, weekFirstMonthday);

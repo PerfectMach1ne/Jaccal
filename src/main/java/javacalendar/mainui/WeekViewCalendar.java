@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.LocalDate;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -42,9 +43,11 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
     private final int HOUR_LABEL_HEIGHT = 25;
 
     private JPanel weekViewport;
+    private JPanel wrapperPanel;
     private JPanel weekdayLabelViewport;
     private JPanel monthdayLabelViewport;
     private JPanel hourLabelViewport;
+    private JPanel weekSwitchCorner;
     // This one's a static array, as it needs to be accessible by WeekCalendarHandler, so that it 
     // can add events to it.
     public static final JPanel[] weekdayPanelArray = new JPanel[7];
@@ -52,6 +55,8 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
     private final JLabel[] monthdayLabelArray = new JLabel[7];
     private final JLabel[] hourLabelArray = new JLabel[24];
     private final JButton[] weekSwitchButtons = new JButton[2];
+
+    private LocalDate selectedDate = WeekCalendarHandler.getLD_CurrentWeekDate();
 
     public WeekViewCalendar() {
         this.setLayout(new ScrollPaneLayout());
@@ -62,10 +67,11 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
         // Create and add panel for days of the week and days of the month
         // Has to be contained within a new panel, due to column-header viewport of the ScrollPaneLayou t
         // only being able to hold one component at a time:
-        JPanel wrapperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        wrapperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         wrapperPanel.setPreferredSize(new Dimension(WEEKDAY_LABEL_PANEL_WIDTH, 2 * MONTHDAY_LABEL_PANEL_HEIGHT));
         wrapperPanel.add(configWeekdayLabelViewport(weekdayLabelViewport));
         wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport, (byte)0));
+        wrapperPanel.addMouseListener(this);
         this.setColumnHeaderView(wrapperPanel);
         // Create and add panel for hours of the day
         this.setRowHeaderView(configHourLabelViewport(hourLabelViewport));
@@ -74,7 +80,7 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
         this.createVerticalScrollBar();
 
         // ScrollPaneLayout corner setup
-        JPanel weekSwitchCorner = new JPanel();
+        weekSwitchCorner = new JPanel();
         weekSwitchCorner.setLayout(new BoxLayout(weekSwitchCorner, BoxLayout.Y_AXIS));
         weekSwitchCorner.setBackground(Color.decode("#6a699a"));
         for (int i = 0; i < 2; i++) {
@@ -93,6 +99,8 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
 
         // TODO: Put here bottom left corner
         // TODO: Put here bottom right corner
+
+        this.addMouseListener(this);
     }
 
     private JPanel configWeekViewport(JPanel panel) {
@@ -134,11 +142,14 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
         int[] monthdays = new int[7];
         // Add the 7 weekdayLabels
         if (mode == 0) {
+            selectedDate = WeekCalendarHandler.getLD_CurrentWeekDate();
             monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)0);
         } else if (mode == -1) {
-            monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)-1);
+            selectedDate = selectedDate.minusWeeks(1);
+            monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)-1, selectedDate);
         } else if (mode == 1) {
-            monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)1);
+            selectedDate = selectedDate.plusWeeks(1);
+            monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)1, selectedDate);
         }
         
         for (int i = 0; i < 7; i++) {
@@ -218,24 +229,37 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
         switchButton.setFocusable(false);
         switchButton.setAlignmentX(CENTER_ALIGNMENT);
         switchButton.setAlignmentY(CENTER_ALIGNMENT);
+        switchButton.addMouseListener(this);
         
         return switchButton;
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        if ( e.getSource() == weekSwitchButtons[0]) {
-            
-        } else if ( e.getSource() == weekSwitchButtons[1]) {
-
-        }
-    };
+    public void mouseClicked(MouseEvent e) {};
 
     @Override
     public void mousePressed(MouseEvent e) {};
 
     @Override
-    public void mouseReleased(MouseEvent e) {};
+    public void mouseReleased(MouseEvent e) {
+        if ( e.getSource() == weekSwitchCorner.getComponent(1) ) {
+            System.out.println(selectedDate);
+            wrapperPanel.remove(1); // wrapperPanel contains only 2 elements, and the first is always the static weekday panel.
+            wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport, (byte)-1));
+            wrapperPanel.revalidate();
+            wrapperPanel.repaint();
+            this.revalidate();
+            this.repaint();
+        } else if ( e.getSource() == weekSwitchCorner.getComponent(3) /*weekSwitchButtons[1].getComponent(0)*/ ) {
+            System.out.println(selectedDate);
+            wrapperPanel.remove(1); // wrapperPanel contains only 2 elements, and the first is always the static weekday panel.
+            wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport, (byte)1));
+            wrapperPanel.revalidate();
+            wrapperPanel.repaint();
+            this.revalidate();
+            this.repaint();
+        }
+    };
 
     @Override
     public void mouseEntered(MouseEvent e) {};
