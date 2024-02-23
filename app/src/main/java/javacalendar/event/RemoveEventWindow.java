@@ -1,6 +1,6 @@
-package main.java.javacalendar.event;
+package javacalendar.event;
 
-import main.java.javacalendar.util.WeekdayUtils;
+import javacalendar.util.WeekdayUtils;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;

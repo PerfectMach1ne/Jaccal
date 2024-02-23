@@ -1,4 +1,4 @@
-package main.java.javacalendar.mainui;
+package javacalendar.mainui;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -9,10 +9,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import main.java.javacalendar.event.AddEventWindow;
-import main.java.javacalendar.event.ChangeEventWindow;
-import main.java.javacalendar.event.RemoveEventWindow;
-import main.java.javacalendar.minicalendar.MiniCalendarPopup;
+import javacalendar.event.AddEventWindow;
+import javacalendar.event.ChangeEventWindow;
+import javacalendar.event.RemoveEventWindow;
+import javacalendar.minicalendar.MiniCalendarPopup;
 
 public class MenuBar extends JMenuBar implements ActionListener {
     private JMenuItem calMenuItem1, calMenuItem2, calSubMenuItem1, calSubMenuItem2, calSubMenuItem3;

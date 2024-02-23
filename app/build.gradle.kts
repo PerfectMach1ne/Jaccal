@@ -27,7 +27,7 @@ dependencies {
 application {
     // Define the main class for the application.
     // mainClass = "src.main.java.javacalendar.Main"
-    mainClass.set("main.java.javacalendar.Main")
+    mainClass.set("javacalendar.Main")
 }
 
 tasks.named<Test>("test") {

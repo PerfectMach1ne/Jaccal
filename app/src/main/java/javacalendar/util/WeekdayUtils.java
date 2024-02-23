@@ -1,4 +1,4 @@
-package main.java.javacalendar.util;
+package javacalendar.util;
 
 // A few methods to assist add, change and remove event windows in handling week days.
 public class WeekdayUtils {

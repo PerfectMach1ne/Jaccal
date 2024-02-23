@@ -1,4 +1,4 @@
-package main.java.javacalendar.event;
+package javacalendar.event;
 
 public class EventPanelGenerator {
     EventPanelGenerator() {}
