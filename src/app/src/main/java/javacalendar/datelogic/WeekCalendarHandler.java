@@ -1,4 +1,4 @@
-package javacalendar.datelogic;
+package datelogic;
 
 import java.time.LocalDate;
 // import java.time.LocalDateTime;

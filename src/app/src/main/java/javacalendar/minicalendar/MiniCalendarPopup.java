@@ -1,4 +1,4 @@
-package javacalendar.minicalendar;
+package minicalendar;
 
 import javax.swing.JFrame;
 

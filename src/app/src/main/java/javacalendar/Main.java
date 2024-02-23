@@ -1,12 +1,10 @@
-package javacalendar;
-
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import javacalendar.mainui.*; 
+import mainui.*; 
 
 public class Main implements KeyListener {
     private final JFrame mainWindow;

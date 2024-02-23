@@ -1,10 +1,10 @@
-package javacalendar.minicalendar;
+package minicalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import javacalendar.util.StringConstants;
+import util.StringConstants;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

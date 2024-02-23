@@ -1,4 +1,4 @@
-package javacalendar.event;
+package event;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -24,10 +24,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javacalendar.util.Colors;
-import javacalendar.util.LengthRestrictedDocument;
-import javacalendar.util.StringConstants;
-import javacalendar.util.WeekdayUtils;
+import util.Colors;
+import util.LengthRestrictedDocument;
+import util.StringConstants;
+import util.WeekdayUtils;
 
 public class ChangeEventWindow implements ActionListener, MouseListener, KeyListener {
     private JFrame changeEventFrame = new JFrame();

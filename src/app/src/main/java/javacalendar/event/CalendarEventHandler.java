@@ -1,12 +1,12 @@
-package javacalendar.event;
+package event;
 
 import java.util.HashMap;
 
 import javax.swing.JLabel;
 import java.awt.Color;
 
-import javacalendar.mainui.WeekViewCalendar;
-import javacalendar.util.Colors;
+import mainui.WeekViewCalendar;
+import util.Colors;
 
 public final class CalendarEventHandler extends WeekViewCalendar {
     public static HashMap<String, JLabel> eventStorage = new HashMap<>();

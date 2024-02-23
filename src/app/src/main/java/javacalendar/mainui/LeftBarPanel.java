@@ -1,4 +1,4 @@
-package javacalendar.mainui;
+package mainui;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -12,10 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
-import javacalendar.event.AddEventWindow;
-import javacalendar.event.ChangeEventWindow;
-import javacalendar.event.RemoveEventWindow;
-import javacalendar.minicalendar.MiniCalendarPanel;
+import event.AddEventWindow;
+import event.ChangeEventWindow;
+import event.RemoveEventWindow;
+import minicalendar.MiniCalendarPanel;
 
 public class LeftBarPanel extends JPanel implements ActionListener {
     private final int PARENT_PANEL_WIDTH = 250;
