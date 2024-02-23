@@ -15,11 +15,11 @@ public class Main implements KeyListener {
     public static final int WINDOW_HEIGHT = 800; // Originally 850
 
     public Main() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     Class.forName("com.mysql.cj.jdbc.Driver");
+        // } catch (ClassNotFoundException e) {
+        //     e.printStackTrace();
+        // }
 
         mainWindow = new JFrame("JavaCalendar");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

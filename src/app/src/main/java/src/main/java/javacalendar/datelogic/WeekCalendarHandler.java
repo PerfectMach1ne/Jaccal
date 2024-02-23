@@ -21,6 +21,7 @@ public class WeekCalendarHandler {
                 weekDate = weekDate.plusDays(1);
             }
         }
+
         return weekdays;
     }
 
