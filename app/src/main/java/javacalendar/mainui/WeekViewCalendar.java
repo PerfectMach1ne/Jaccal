@@ -25,7 +25,7 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
     private final int PARENT_PANEL_HEIGHT = 780;
 
     private final int WEEKDAY_SLICE_WIDTH = 160;
-    private final int WEEKDAY_SLICE_HEIGHT = 730;
+    private final int WEEKDAY_SLICE_HEIGHT = 780;
 
     private final int WEEKDAY_LABEL_PANEL_WIDTH = 1122;
     private final int WEEKDAY_LABEL_PANEL_HEIGHT = 50;
@@ -56,7 +56,7 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
     private final JLabel[] hourLabelArray = new JLabel[24];
     private final JButton[] weekSwitchButtons = new JButton[2];
 
-    private LocalDate selectedDate = WeekCalendarHandler.getLD_CurrentWeekDate();
+    private LocalDate selectedDate = WeekCalendarHandler.getCurrentWeekDate();
 
     public WeekViewCalendar() {
         this.setLayout(new ScrollPaneLayout());
@@ -142,14 +142,14 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
         int[] monthdays = new int[7];
         // Add the 7 weekdayLabels
         if (mode == (byte)0) {
-            selectedDate = WeekCalendarHandler.getLD_CurrentWeekDate();
-            monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)0);
+            selectedDate = WeekCalendarHandler.getCurrentWeekDate();
+            monthdays = WeekCalendarHandler.getWeekWeekdays(selectedDate);
         } else if (mode == (byte)-1) {
-            selectedDate = selectedDate.minusWeeks(1);
-            monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)-1, selectedDate);
+            selectedDate = WeekCalendarHandler.getPastWeekDate(selectedDate);
+            monthdays = WeekCalendarHandler.getWeekWeekdays(selectedDate);
         } else if (mode == (byte)1) {
-            selectedDate = selectedDate.plusWeeks(1);
-            monthdays = WeekCalendarHandler.getCurrentWeekWeekdays((byte)1, selectedDate);
+            selectedDate = WeekCalendarHandler.getFutureWeekDate(selectedDate);
+            monthdays = WeekCalendarHandler.getWeekWeekdays(selectedDate);
         }
         
         for (int i = 0; i < 7; i++) {
