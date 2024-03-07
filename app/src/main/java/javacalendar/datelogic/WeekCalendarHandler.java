@@ -1,19 +1,16 @@
 package javacalendar.datelogic;
 
 import java.time.LocalDate;
-// import java.time.LocalDateTime;
 
 public class WeekCalendarHandler {
-    WeekCalendarHandler() {}
-
     /**
-     * Offset the LocalDate instance passed as a parameter the amount of days required to set it
+     * Offset the LocalDate instance (passed as a parameter) by the amount of days required to set it
      * at the first day of the week (so, tl;dr: offsets a LocalDate instance to Monday).
      * @param localDate - a LocalDate instance.
      * @return firstMonthWeekday - month.
      */
     public static LocalDate getOffsetDate(LocalDate localDate) {
-        // Subtract x in [0,6] from the localDate:
+        // Subtract an x in the interval [0,6] from the localDate:
         return localDate.minusDays(localDate.getDayOfWeek().getValue() - 1);
     }
 
@@ -61,6 +58,13 @@ public class WeekCalendarHandler {
         return LocalDate.of(offsetDate.getYear(), offsetDate.getMonth(), mondayMonthday);
     }
 
+    /**
+     * Return an array of seven monthdays corresponding to the week of a LocalDate instance
+     * (assumes that the LocalDate instance passed as a parameter is offset to Monday).
+     * 
+     * @param date
+     * @return int[] - a 7-element array of integer monthdays.
+     */
     // Get every monthday of the current week in an array.
     public static int[] getWeekWeekdays(LocalDate date) {
         int[] weekdays = new int[7];
