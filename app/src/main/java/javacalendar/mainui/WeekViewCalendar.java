@@ -61,28 +61,43 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
     public WeekViewCalendar() {
         this.setLayout(new ScrollPaneLayout());
         this.setBackground(Color.gray);
-
-        // Create and add the 7-day week display for events
+        this.createHorizontalScrollBar();
+        this.createVerticalScrollBar();
+        
+        /*
+         * Create and add the 7-day week display for events.
+         */
         this.setViewportView(configWeekViewport(weekViewport));
-        // Create and add panel for days of the week and days of the month
-        // Has to be contained within a new panel, due to column-header viewport of the ScrollPaneLayou t
-        // only being able to hold one component at a time:
+
+        /*
+         * Create and add the container panel for JLabels of hours of the day
+         */
+        this.setRowHeaderView(configHourLabelViewport(hourLabelViewport));
+
+        /* 
+         * Create and add panel for days of the week and days of the month
+         * Has to be contained within a wrapper panel, due to column-header viewport of the ScrollPaneLayout
+         * only being able to hold one component at a time:
+         */
         wrapperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         wrapperPanel.setPreferredSize(new Dimension(WEEKDAY_LABEL_PANEL_WIDTH, 2 * MONTHDAY_LABEL_PANEL_HEIGHT));
+
         wrapperPanel.add(configWeekdayLabelViewport(weekdayLabelViewport));
         wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport, (byte)0));
         wrapperPanel.addMouseListener(this);
+
         this.setColumnHeaderView(wrapperPanel);
-        // Create and add panel for hours of the day
-        this.setRowHeaderView(configHourLabelViewport(hourLabelViewport));
 
-        this.createHorizontalScrollBar();
-        this.createVerticalScrollBar();
-
-        // ScrollPaneLayout corner setup
+        /*
+         * Setup the "corners" of JScrollPane (see ScrollPaneLayout docs for layout explanation).
+         */
         weekSwitchCorner = new JPanel();
         weekSwitchCorner.setLayout(new BoxLayout(weekSwitchCorner, BoxLayout.Y_AXIS));
         weekSwitchCorner.setBackground(Color.decode("#6a699a"));
+
+        /*
+         * Create and add the container panel for JLabels of the days of the week.
+         */
         for (int i = 0; i < 2; i++) {
             weekSwitchCorner.add(Box.createRigidArea(
                 new Dimension(weekSwitchCorner.getWidth(), 12)

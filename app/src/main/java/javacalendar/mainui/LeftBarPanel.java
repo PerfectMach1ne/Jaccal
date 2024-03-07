@@ -74,6 +74,9 @@ public class LeftBarPanel extends JPanel implements ActionListener {
         return butt;
     }
 
+    /*
+     * Make buttons open the corresponding windows.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if ( e.getSource() == addEventButton ) {

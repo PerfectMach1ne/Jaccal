@@ -15,22 +15,24 @@ public class Main implements KeyListener {
     public static final int WINDOW_HEIGHT = 800; // Originally 850
 
     public Main() {
-        // try {
-        //     Class.forName("com.mysql.cj.jdbc.Driver");
-        // } catch (ClassNotFoundException e) {
-        //     e.printStackTrace();
-        // }
+      // MySQL JDBC driver connection (does that work? we'll see!).
+      try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         mainWindow = new JFrame("JavaCalendar");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         mainWindow.setResizable(true);
+        mainWindow.setLayout(new BorderLayout());  
+        // A "nooby", albeit functional way to center the window, I suppose.
+        mainWindow.setLocationRelativeTo(null);
+
         mainWindow.addKeyListener(this);
 
-        mainWindow.setLayout(new BorderLayout());
         addMainComponents();
-
-        mainWindow.setLocationRelativeTo(null);
     }
 
     private void addMainComponents() {
@@ -40,7 +42,8 @@ public class Main implements KeyListener {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> { // Invoking a runnable asynchronously (the lambda is the "Runnable" class; or the run() method)
+        SwingUtilities.invokeLater(() -> {
+            // Invoking a runnable asynchronously (the lambda is the "Runnable" class; or the run() method).
             Main window = new Main();
             window.mainWindow.setVisible(true);
         });
@@ -50,6 +53,9 @@ public class Main implements KeyListener {
     public void keyTyped(KeyEvent e) {}
 
     @Override
+    /*
+     * Ctrl + W closes the main window.
+     */
     public void keyPressed(KeyEvent e) {
         if ((e.getKeyCode() == KeyEvent.VK_W) && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
             mainWindow.dispose();
