@@ -1,2 +1,2 @@
-# uni-sys-integr
-Uni semester 7 class project
+# Jaccal
+Uni final thesis project. A desktop calendar & time management app written using Java Swing. 
