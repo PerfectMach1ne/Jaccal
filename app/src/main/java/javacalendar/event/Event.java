@@ -3,6 +3,7 @@ package javacalendar.event;
 public class Event {
     Event() {}
 
+    /* 05-04-2024 note: different types of events! 2 is sufficient, but i can... "innovate" lol */
     /*
      * ## Classes to utilize:
      * # LocalDateTime
