@@ -26,8 +26,7 @@ public class MiniCalendarPanel extends JPanel {
     private final int PARENT_PANEL_HEIGHT = 144;
     private final int PARENT_PANEL_WIDTH = 218; // TODO: rethink the actual dimensions 
 
-    private JPanel internalPanel; // internalPanelLogic; like, this is a logic class. Makes sense to one of my
-                                         // braincells, I guess...?
+    private JPanel internalPanel;
 
     // Protected, bc this way it's only visible in the package (so the javacalendar.event package)
     protected void initializeMiniCal() {
@@ -74,28 +73,40 @@ public class MiniCalendarPanel extends JPanel {
         } while (gregCal.get(Calendar.MONTH) == currentMonth);
     }
 
+    private void initializeFirstRowOfLabels(String[] labels) {
+        for (int i = 0; i < 7; i++) {
+            JLabel label = new JLabel(labels[i]);
+
+            label.setBackground(Color.decode("#a9a7ed"));
+            label.setOpaque(true);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+
+            internalPanel.add(label);
+        }
+    }
+
     public MiniCalendarPanel() {
-        //////////////////// ISSUE //////////////////
-        // I think BorderLayout is terrible for such a component. Let's try to implement GridLayout later.
         this.setBackground(Color.lightGray);
         this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
         this.setPreferredSize(new Dimension(PARENT_PANEL_WIDTH, PARENT_PANEL_HEIGHT));
 
         internalPanel = new JPanel();
-        /////////////////////// BUG TO FIX ///////////////////////
-        // Row count causes issues on some months, e.g.:
-        // Feb 2024 requires `rows` to be 6 instead of 7 in order to prevent the calendar from collapsing
-        // Sunday into a new row, for some reason. It should be connected to what kind of month it is today,
-        // also. somehow.  
         internalPanel.setLayout(new GridLayout(6,7,2,2));   
         internalPanel.setBackground(Color.lightGray);
 
         initializeFirstRowOfLabels(StringConstants.weekdays);
-
         initializeMiniCal();
 
         this.add(internalPanel, BorderLayout.CENTER);
 
+        // Use height and the fact, that:
+        // Dokładna wysokość czcionki w komponencie minicalendar.MiniCalendarBox = 9px
+        // Dokładna wysokość of 1 grid and the Label inside it = 16px
+        // Ratio of font pixel size to Label standard height is 9 / 16 = 0.5625
+        // (9+Δy) = (16+Δx)*0.5625
+        // gdzie Δx to zmiana wysokosci komponentu JLabel a Δy to zmiana wysokości czcionki
+        // Mozna to zrobic tak: Δx = (...).getHeight() - 16 (Δx < 0 when smaller than standard box size)
+        // I potem w if-ach albo switch-case zmieniac rozmiar czcionki poprzez setText
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 for (Component c : internalPanel.getComponents()) {
@@ -106,28 +117,7 @@ public class MiniCalendarPanel extends JPanel {
                         c.setFont(new Font("Courier New", Font.BOLD, 16));
                     }
                 }
-                // Use height and the fact, that:
-                // Dokładna wysokość czcionki w komponencie minicalendar.MiniCalendarBox = 9px
-                // Dokładna wysokość of 1 grid and the Label inside it = 16px
-                // Ratio of font pixel size to Label standard height is 9 / 16 = 0.5625
-                // (9+Δy) = (16+Δx)*0.5625
-                // gdzie Δx to zmiana wysokosci komponentu JLabel a Δy to zmiana wysokości czcionki
-                // Mozna to zrobic tak: Δx = (...).getHeight() - 16 (Δx < 0 when smaller than standard box size)
-                // I potem w if-ach albo switch-case zmieniac rozmiar czcionki poprzez setText
             }
         });
-
-    }
-
-    private void initializeFirstRowOfLabels(String[] labels) {
-        for (int i = 0; i < 7; i++) {
-            JLabel label = new JLabel(labels[i]);
-
-            label.setBackground(Color.decode("#a9a7ed"));
-            label.setOpaque(true);
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            // "Variable 'i' is accessed from within inner class, needs to be final or effectively final"
-            internalPanel.add(label);
-        }
     }
 }
