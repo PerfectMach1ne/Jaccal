@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +22,7 @@ public class LeftBarPanel extends JPanel implements ActionListener {
     private final int PARENT_PANEL_WIDTH = 250;
     private final int PARENT_PANEL_HEIGHT = 800;
 
-    private final Dimension TINY_RIGID_BOX_DIMENSIONS = new Dimension(PARENT_PANEL_WIDTH, 10);
+    private final Dimension TINY_RIGID_BOX_DIMENSIONS = new Dimension(PARENT_PANEL_WIDTH, 5);
     private final Dimension HUGE_RIGID_BOX_DIMENSIONS = new Dimension(PARENT_PANEL_HEIGHT, 450);
 
     private JLabel displayTextDate = new JLabel();
@@ -31,7 +32,7 @@ public class LeftBarPanel extends JPanel implements ActionListener {
     private JButton removeEventButton;
 
     public LeftBarPanel() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new FlowLayout());
         this.setAlignmentX(CENTER_ALIGNMENT);
         
         this.setBackground(Color.darkGray);

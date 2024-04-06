@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import javacalendar.util.StringConstants;
 
@@ -22,8 +23,8 @@ public class MiniCalendarPanel extends JPanel {
     private final int LABEL_HEIGHT = 16;
     private final double FONT_TO_LABEL_HEIGHT_RATIO = 0.5625;
     
-    private final int PARENT_PANEL_HEIGHT = 120;
-    private final int PARENT_PANEL_WIDTH = 170; // TODO: rethink the actual dimensions 
+    private final int PARENT_PANEL_HEIGHT = 144;
+    private final int PARENT_PANEL_WIDTH = 218; // TODO: rethink the actual dimensions 
 
     private JPanel internalPanel; // internalPanelLogic; like, this is a logic class. Makes sense to one of my
                                          // braincells, I guess...?
@@ -55,12 +56,7 @@ public class MiniCalendarPanel extends JPanel {
         // Add blank, indent JLabel boxes to the first mini-calendar row.
         // Note: if indent breaks, try: i = 1; i <= indent
         for (int i = 0; i < indent; i++) {
-            internalPanel.add(new JLabel() {
-                {
-                    setBackground(Color.lightGray);
-                    setOpaque(true);
-                }
-            });
+            internalPanel.add(new JLabel());
         }
 
         /*
@@ -68,22 +64,12 @@ public class MiniCalendarPanel extends JPanel {
          */
         do {
             int day = gregCal.get(Calendar.DAY_OF_MONTH);
-            if (day == currentDayOfMonth)
-                internalPanel.add(new JLabel() {
-                    {
-                        setBackground(Color.decode("#e0fff9"));
-                        setOpaque(true); // Make the background visible
-                        setText(Integer.valueOf(day).toString());
-                    }
-                });
-            else
-                internalPanel.add(new JLabel() {
-                    {
-                        setBackground(Color.white);
-                        setOpaque(true); // Make the background visible
-                        setText(Integer.valueOf(day).toString());
-                    }
-                });
+            JLabel label = new JLabel(Integer.valueOf(day).toString());
+
+            label.setBackground( day == currentDayOfMonth ? Color.decode("#e0fff9") : Color.white );
+            label.setOpaque(true);
+            internalPanel.add(label);
+            
             gregCal.add(Calendar.DAY_OF_MONTH, 1);
         } while (gregCal.get(Calendar.MONTH) == currentMonth);
     }
@@ -91,7 +77,6 @@ public class MiniCalendarPanel extends JPanel {
     public MiniCalendarPanel() {
         //////////////////// ISSUE //////////////////
         // I think BorderLayout is terrible for such a component. Let's try to implement GridLayout later.
-        // this.setLayout(new BorderLayout());
         this.setBackground(Color.lightGray);
         this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
         this.setPreferredSize(new Dimension(PARENT_PANEL_WIDTH, PARENT_PANEL_HEIGHT));
@@ -102,13 +87,11 @@ public class MiniCalendarPanel extends JPanel {
         // Feb 2024 requires `rows` to be 6 instead of 7 in order to prevent the calendar from collapsing
         // Sunday into a new row, for some reason. It should be connected to what kind of month it is today,
         // also. somehow.  
-        internalPanel.setLayout(new GridLayout(6,7,3,3));   
+        internalPanel.setLayout(new GridLayout(6,7,2,2));   
         internalPanel.setBackground(Color.lightGray);
 
         initializeFirstRowOfLabels(StringConstants.weekdays);
 
-        JPanel miniCalendar = new JPanel();
-        miniCalendar.add(internalPanel);
         initializeMiniCal();
 
         this.add(internalPanel, BorderLayout.CENTER);
@@ -138,16 +121,13 @@ public class MiniCalendarPanel extends JPanel {
 
     private void initializeFirstRowOfLabels(String[] labels) {
         for (int i = 0; i < 7; i++) {
+            JLabel label = new JLabel(labels[i]);
+
+            label.setBackground(Color.decode("#a9a7ed"));
+            label.setOpaque(true);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
             // "Variable 'i' is accessed from within inner class, needs to be final or effectively final"
-            int finalI = i;
-            internalPanel.add(new JLabel() {
-                {
-                    setBackground(Color.decode("#a9a7ed"));
-                    setOpaque(true);    // Make the background visible
-                    setText(labels[finalI]);
-                    setHorizontalAlignment(CENTER);
-                }
-            });
+            internalPanel.add(label);
         }
     }
 }
