@@ -1,5 +1,8 @@
 package javacalendar.minicalendar;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,9 +23,70 @@ public class MiniCalendarPanel extends JPanel {
     private final double FONT_TO_LABEL_HEIGHT_RATIO = 0.5625;
     
     private final int PARENT_PANEL_HEIGHT = 120;
-    private final int PARENT_PANEL_WIDTH = 170; 
+    private final int PARENT_PANEL_WIDTH = 170; // TODO: rethink the actual dimensions 
 
-    private final JPanel internalPanel;
+    private JPanel internalPanel; // internalPanelLogic; like, this is a logic class. Makes sense to one of my
+                                         // braincells, I guess...?
+
+    // Protected, bc this way it's only visible in the package (so the javacalendar.event package)
+    protected void initializeMiniCal() {
+        // Create a GregorianCalendar instance set at current time & date in system's timezone.
+        GregorianCalendar gregCal = new GregorianCalendar();
+        // If these are AFTER the calendar position is set to 1st monthday, today highlighting breaks.
+        int currentMonth = gregCal.get(Calendar.MONTH);
+        int currentDayOfMonth = gregCal.get(Calendar.DAY_OF_MONTH);
+
+        // Set the calendar position at the first day of the current month (1st monthday).
+        gregCal.set(Calendar.DAY_OF_MONTH, 1);
+        int weekday = gregCal.get(Calendar.DAY_OF_WEEK); // Day-of-the-week of 1st monthday.
+        int firstDayOfWeek = gregCal.getFirstDayOfWeek(); // Returns Monday (or Sunday if you unfortunately live in the U.S.).
+
+        // Calculate the row indent before monthday '1'.
+                          // Clone the object, so that we don't have to later write an extra code block
+                          // to revert the changes this would do to gregCal's monthday position.
+        GregorianCalendar indentCalCopy = (GregorianCalendar)gregCal.clone();
+        int indent = 0;
+        while (weekday != firstDayOfWeek) {
+            indent++;
+            indentCalCopy.add(Calendar.DAY_OF_MONTH, -1);
+            weekday = indentCalCopy.get(Calendar.DAY_OF_WEEK);
+        }
+
+        // Add blank, indent JLabel boxes to the first mini-calendar row.
+        // Note: if indent breaks, try: i = 1; i <= indent
+        for (int i = 0; i < indent; i++) {
+            internalPanel.add(new JLabel() {
+                {
+                    setBackground(Color.lightGray);
+                    setOpaque(true);
+                }
+            });
+        }
+
+        /*
+         * Create JLabels with days of the month, until we run out of monthdays for the given month.
+         */
+        do {
+            int day = gregCal.get(Calendar.DAY_OF_MONTH);
+            if (day == currentDayOfMonth)
+                internalPanel.add(new JLabel() {
+                    {
+                        setBackground(Color.decode("#e0fff9"));
+                        setOpaque(true); // Make the background visible
+                        setText(Integer.valueOf(day).toString());
+                    }
+                });
+            else
+                internalPanel.add(new JLabel() {
+                    {
+                        setBackground(Color.white);
+                        setOpaque(true); // Make the background visible
+                        setText(Integer.valueOf(day).toString());
+                    }
+                });
+            gregCal.add(Calendar.DAY_OF_MONTH, 1);
+        } while (gregCal.get(Calendar.MONTH) == currentMonth);
+    }
 
     public MiniCalendarPanel() {
         //////////////////// ISSUE //////////////////
@@ -43,8 +107,9 @@ public class MiniCalendarPanel extends JPanel {
 
         initializeFirstRowOfLabels(StringConstants.weekdays);
 
-        MiniCalendarHandler miniCalendar = new MiniCalendarHandler(internalPanel);
-        miniCalendar.initializeMiniCal();
+        JPanel miniCalendar = new JPanel();
+        miniCalendar.add(internalPanel);
+        initializeMiniCal();
 
         this.add(internalPanel, BorderLayout.CENTER);
 
