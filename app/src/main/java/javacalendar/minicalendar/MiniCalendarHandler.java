@@ -18,25 +18,26 @@ public class MiniCalendarHandler {
     // Protected, bc this way it's only visible in the package (so the
     // javacalendar.event package)
     protected void initializeMiniCal() {
+        // Create a GregorianCalendar instance set at current time & date in system's timezone.
         GregorianCalendar gregCal = new GregorianCalendar();
-        int today = gregCal.get(Calendar.DAY_OF_MONTH);
-        int month = gregCal.get(Calendar.MONTH);
+        int currentDayOfMonth = gregCal.get(Calendar.DAY_OF_MONTH);
+        int currentMonth = gregCal.get(Calendar.MONTH);
 
+        // Set the calendar position at the first day of the current month (1st monthday).
         gregCal.set(Calendar.DAY_OF_MONTH, 1);
-        int weekday = gregCal.get(Calendar.DAY_OF_WEEK);
-        int firstDayOfWeek = gregCal.getFirstDayOfWeek();
+        int weekday = gregCal.get(Calendar.DAY_OF_WEEK); // Day-of-the-week of 1st monthday.
+        int firstDayOfWeek = gregCal.getFirstDayOfWeek(); // Returns Monday (or Sunday if you unfortunately live in the U.S.).
 
+        // Calculate the row indent before monthday '1'.
+                          // Clone the object, so that we don't have to later write an extra code block
+                          // to revert the changes this would do to gregCal's monthday position.
+        GregorianCalendar indentCalCopy = (GregorianCalendar)gregCal.clone();
         int indent = 0;
         while (weekday != firstDayOfWeek) {
             indent++;
-            gregCal.add(Calendar.DAY_OF_MONTH, -1);
-            weekday = gregCal.get(Calendar.DAY_OF_WEEK);
+            indentCalCopy.add(Calendar.DAY_OF_MONTH, -1);
+            weekday = indentCalCopy.get(Calendar.DAY_OF_WEEK);
         }
-
-        do {
-            gregCal.add(Calendar.DAY_OF_MONTH, 1);
-            weekday = gregCal.get(Calendar.DAY_OF_WEEK);
-        } while (weekday != firstDayOfWeek);
 
         for (int i = 1; i <= indent; i++) {
             internalPanelL.add(new JLabel() {
@@ -52,7 +53,7 @@ public class MiniCalendarHandler {
 
         do {
             int day = gregCal.get(Calendar.DAY_OF_MONTH);
-            if (day == today)
+            if (day == currentDayOfMonth)
                 internalPanelL.add(new JLabel() {
                     {
                         setBackground(Color.decode("#e0fff9"));
@@ -70,6 +71,6 @@ public class MiniCalendarHandler {
                 });
             gregCal.add(Calendar.DAY_OF_MONTH, 1);
 
-        } while (gregCal.get(Calendar.MONTH) == month);
+        } while (gregCal.get(Calendar.MONTH) == currentMonth);
     }
 }
