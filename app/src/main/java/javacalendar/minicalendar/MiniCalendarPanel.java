@@ -37,7 +37,7 @@ public class MiniCalendarPanel extends JPanel {
          */
         GregorianCalendar gregCal = new GregorianCalendar();
 
-        gregCal.add(Calendar.MONTH, -38); // Cannot be after setCorrectLayout()
+        // gregCal.add(Calendar.MONTH, -38); // Cannot be after setCorrectLayout()
         
         // If these are AFTER the calendar position is set to 1st monthday, highlighting of today's day breaks.
         int currentMonth = gregCal.get(Calendar.MONTH);
