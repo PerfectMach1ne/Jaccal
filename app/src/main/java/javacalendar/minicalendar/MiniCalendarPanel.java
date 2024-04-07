@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 
 import javacalendar.util.StringConstants;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -36,7 +37,7 @@ public class MiniCalendarPanel extends JPanel {
          */
         GregorianCalendar gregCal = new GregorianCalendar();
 
-        // gregCal.add(Calendar.MONTH, 5); // Cannot be after setCorrectLayout()
+        gregCal.add(Calendar.MONTH, -38); // Cannot be after setCorrectLayout()
         
         // If these are AFTER the calendar position is set to 1st monthday, highlighting of today's day breaks.
         int currentMonth = gregCal.get(Calendar.MONTH);
@@ -131,13 +132,15 @@ public class MiniCalendarPanel extends JPanel {
     }
 
     public MiniCalendarPanel() {
+        this.setLayout(new BorderLayout());
         this.setBackground(Color.lightGray);
         this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
         this.setPreferredSize(new Dimension(PARENT_PANEL_WIDTH, PARENT_PANEL_HEIGHT));
 
         initializeMiniCal();
 
-        this.add(internalPanel/*, BorderLayout.CENTER*/);
+        this.add(internalPanel, BorderLayout.CENTER);
+        // this.add(internalPanel/*, BorderLayout.CENTER*/);
 
         /*
          ***** Old comment rough translation:
