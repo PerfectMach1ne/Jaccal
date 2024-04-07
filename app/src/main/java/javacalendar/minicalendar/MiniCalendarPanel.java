@@ -152,12 +152,7 @@ public class MiniCalendarPanel extends JPanel {
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 for (Component c : internalPanel.getComponents()) {
-                    if (c.getHeight() > LABEL_HEIGHT) {
-                        int scaledFontSize = (int)Math.round(c.getHeight() * FONT_TO_LABEL_HEIGHT_RATIO);
-                        c.setFont(new Font("Courier New", Font.BOLD, scaledFontSize));
-                    } else {
-                        c.setFont(new Font("Courier New", Font.BOLD, 16));
-                    }
+                    c.setFont(new Font("Courier New", Font.BOLD, 16));
                 }
             }
         });
