@@ -29,15 +29,15 @@ public class MiniCalendarPanel extends JPanel {
 
     protected void initializeMiniCal() {
         internalPanel = new JPanel();
-
-        internalPanel.setLayout(new GridLayout(6,7,2,2));   
         internalPanel.setBackground(Color.lightGray);
 
         /*
          * Create a GregorianCalendar instance set at current time & date in system's timezone. 
          */
         GregorianCalendar gregCal = new GregorianCalendar();
-        gregCal.add(Calendar.MONTH, 5);
+
+        // gregCal.add(Calendar.MONTH, 5); // Cannot be after setCorrectLayout()
+        
         // If these are AFTER the calendar position is set to 1st monthday, highlighting of today's day breaks.
         int currentMonth = gregCal.get(Calendar.MONTH);
         int currentDayOfMonth = gregCal.get(Calendar.DAY_OF_MONTH);
@@ -46,6 +46,8 @@ public class MiniCalendarPanel extends JPanel {
          * Set the calendar position at the first day of the current month (1st monthday). 
          */
         gregCal.set(Calendar.DAY_OF_MONTH, 1);
+
+        setCorrectLayout(gregCal); 
         
         initializeWeekdayLabels(StringConstants.weekdays);
         
@@ -107,19 +109,25 @@ public class MiniCalendarPanel extends JPanel {
         }
     }
 
-    // https://en.wikipedia.org/wiki/Zeller's_congruence
-    private void zellersCongruence() {
-
-    }
-
     /*
      * The default row x col count for MiniCalendar's GridLayout is 6x7, including 1 row of weekday
      * labels and 5 rows of monthdays.
      * However, it breaks on certain months that have 6 or 4 rows of monthdays. This function aims
      * to fix that. 
      */
-    private void setCorrectLayout() {
-
+    private void setCorrectLayout(GregorianCalendar gregCalRef) {
+        if (gregCalRef.get(Calendar.MONTH) == Calendar.FEBRUARY && gregCalRef.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+            System.out.println("4 week rows");
+            internalPanel.setLayout(new GridLayout(5,7,2,2));
+        } else if (gregCalRef.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY ||
+                   (gregCalRef.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY &&
+                    gregCalRef.getActualMaximum(Calendar.DAY_OF_MONTH) > 30)) {
+            System.out.println("6 week rows");
+            internalPanel.setLayout(new GridLayout(7,7,2,2));
+        } else {
+            System.out.println("5 week rows");
+            internalPanel.setLayout(new GridLayout(6,7,2,2));
+        }  
     }
 
     public MiniCalendarPanel() {
