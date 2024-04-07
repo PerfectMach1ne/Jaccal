@@ -32,6 +32,8 @@ public class WeekCalendarHandler {
      * Returns an instance of LocalDate, first offset a week backwards, then offset to a Monday
      * (so the first day of the week).
      * It has to be a LocalDate instance specifically, so that time isn't included in this method.
+     * 
+     * @param date
      * @return LocalDate
      */
     public static LocalDate getPastWeekDate(LocalDate date) {
@@ -47,6 +49,8 @@ public class WeekCalendarHandler {
      * Returns an instance of LocalDate first offset a week forward, then offset to a Monday
      * (so the first day of the week).
      * It has to be a LocalDate instance specifically, so that time isn't included in this method.
+     *
+     * @param date
      * @return LocalDate
      */
     public static LocalDate getFutureWeekDate(LocalDate date) {

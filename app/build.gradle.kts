@@ -9,6 +9,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    scala
 }
 
 repositories {
@@ -22,6 +23,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
+    implementation("org.scala-lang:scala-library:2.13.12")
 }
 
 application {
