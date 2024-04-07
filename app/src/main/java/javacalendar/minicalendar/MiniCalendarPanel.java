@@ -10,7 +10,6 @@ import javax.swing.SwingConstants;
 
 import javacalendar.util.StringConstants;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -24,39 +23,38 @@ public class MiniCalendarPanel extends JPanel {
     private final double FONT_TO_LABEL_HEIGHT_RATIO = 0.5625;
     
     private final int PARENT_PANEL_HEIGHT = 144;
-    private final int PARENT_PANEL_WIDTH = 218; // TODO: rethink the actual dimensions 
+    private final int PARENT_PANEL_WIDTH = 218;
 
     private JPanel internalPanel;
 
-    // Protected, bc this way it's only visible in the package (so the javacalendar.event package)
     protected void initializeMiniCal() {
-        // Create a GregorianCalendar instance set at current time & date in system's timezone.
+        internalPanel = new JPanel();
+
+        internalPanel.setLayout(new GridLayout(6,7,2,2));   
+        internalPanel.setBackground(Color.lightGray);
+
+        /*
+         * Create a GregorianCalendar instance set at current time & date in system's timezone. 
+         */
         GregorianCalendar gregCal = new GregorianCalendar();
-        // If these are AFTER the calendar position is set to 1st monthday, today highlighting breaks.
+        gregCal.add(Calendar.MONTH, 5);
+        // If these are AFTER the calendar position is set to 1st monthday, highlighting of today's day breaks.
         int currentMonth = gregCal.get(Calendar.MONTH);
         int currentDayOfMonth = gregCal.get(Calendar.DAY_OF_MONTH);
 
-        // Set the calendar position at the first day of the current month (1st monthday).
+        /*
+         * Set the calendar position at the first day of the current month (1st monthday). 
+         */
         gregCal.set(Calendar.DAY_OF_MONTH, 1);
-        int weekday = gregCal.get(Calendar.DAY_OF_WEEK); // Day-of-the-week of 1st monthday.
-        int firstDayOfWeek = gregCal.getFirstDayOfWeek(); // Returns Monday (or Sunday if you unfortunately live in the U.S.).
-
-        // Calculate the row indent before monthday '1'.
-                          // Clone the object, so that we don't have to later write an extra code block
-                          // to revert the changes this would do to gregCal's monthday position.
+        
+        initializeWeekdayLabels(StringConstants.weekdays);
+        
+        /* 
+         * Clone the object, so that we don't have to later write an extra code block 
+         * to revert the changes this would do to gregCal's monthday position.
+         */                  
         GregorianCalendar indentCalCopy = (GregorianCalendar)gregCal.clone();
-        int indent = 0;
-        while (weekday != firstDayOfWeek) {
-            indent++;
-            indentCalCopy.add(Calendar.DAY_OF_MONTH, -1);
-            weekday = indentCalCopy.get(Calendar.DAY_OF_WEEK);
-        }
-
-        // Add blank, indent JLabel boxes to the first mini-calendar row.
-        // Note: if indent breaks, try: i = 1; i <= indent
-        for (int i = 0; i < indent; i++) {
-            internalPanel.add(new JLabel());
-        }
+        initalizeIndentLabels(indentCalCopy); 
 
         /*
          * Create JLabels with days of the month, until we run out of monthdays for the given month.
@@ -73,7 +71,7 @@ public class MiniCalendarPanel extends JPanel {
         } while (gregCal.get(Calendar.MONTH) == currentMonth);
     }
 
-    private void initializeFirstRowOfLabels(String[] labels) {
+    private void initializeWeekdayLabels(String[] labels) {
         for (int i = 0; i < 7; i++) {
             JLabel label = new JLabel(labels[i]);
 
@@ -85,28 +83,64 @@ public class MiniCalendarPanel extends JPanel {
         }
     }
 
+    private void initalizeIndentLabels(GregorianCalendar gregCalClone) {
+        int weekday = gregCalClone.get(Calendar.DAY_OF_WEEK); // Day-of-the-week of 1st monthday.
+        gregCalClone.setFirstDayOfWeek(Calendar.MONDAY); // Fix bug related to disgusting US date standards.
+        int firstDayOfWeek = gregCalClone.getFirstDayOfWeek(); // Returns Monday (or Sunday if you unfortunately live in the U.S.).
+        
+        /*
+         * Calculate the row indent before monthday '1'.
+         */
+        int indent = 0;
+        while (weekday != firstDayOfWeek) {
+            indent++;
+            gregCalClone.add(Calendar.DAY_OF_MONTH, -1);
+            weekday = gregCalClone.get(Calendar.DAY_OF_WEEK);
+        }
+
+        /*
+         * Add blank, indent JLabel boxes to the first mini-calendar row.
+         * ((Note: if indent breaks, try: i = 1; i <= indent))
+         */
+        for (int i = 0; i < indent; i++) {
+            internalPanel.add(new JLabel());
+        }
+    }
+
+    // https://en.wikipedia.org/wiki/Zeller's_congruence
+    private void zellersCongruence() {
+
+    }
+
+    /*
+     * The default row x col count for MiniCalendar's GridLayout is 6x7, including 1 row of weekday
+     * labels and 5 rows of monthdays.
+     * However, it breaks on certain months that have 6 or 4 rows of monthdays. This function aims
+     * to fix that. 
+     */
+    private void setCorrectLayout() {
+
+    }
+
     public MiniCalendarPanel() {
         this.setBackground(Color.lightGray);
         this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
         this.setPreferredSize(new Dimension(PARENT_PANEL_WIDTH, PARENT_PANEL_HEIGHT));
 
-        internalPanel = new JPanel();
-        internalPanel.setLayout(new GridLayout(6,7,2,2));   
-        internalPanel.setBackground(Color.lightGray);
-
-        initializeFirstRowOfLabels(StringConstants.weekdays);
         initializeMiniCal();
 
-        this.add(internalPanel, BorderLayout.CENTER);
+        this.add(internalPanel/*, BorderLayout.CENTER*/);
 
-        // Use height and the fact, that:
-        // Dokładna wysokość czcionki w komponencie minicalendar.MiniCalendarBox = 9px
-        // Dokładna wysokość of 1 grid and the Label inside it = 16px
-        // Ratio of font pixel size to Label standard height is 9 / 16 = 0.5625
-        // (9+Δy) = (16+Δx)*0.5625
-        // gdzie Δx to zmiana wysokosci komponentu JLabel a Δy to zmiana wysokości czcionki
-        // Mozna to zrobic tak: Δx = (...).getHeight() - 16 (Δx < 0 when smaller than standard box size)
-        // I potem w if-ach albo switch-case zmieniac rozmiar czcionki poprzez setText
+        /*
+         ***** Old comment rough translation:
+         * Use height and the fact, that the precise height of the font in each JLabel component is 9px,
+         * and the precise height of 1 grid is about 16px. Thus, the ratio of the font's size in px to
+         * the JLabel preferred/default height is 9/16 = 0.5625. Now, consider: 
+         * 
+         * (9+Δy) = (16+Δx)*0.5625
+         * ...where Δx is the change in JLabel height and
+         * Δy is the change of font height.
+         */
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 for (Component c : internalPanel.getComponents()) {
