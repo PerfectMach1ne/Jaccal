@@ -1,4 +1,4 @@
-package javacalendar.event;
+package javacalendar.event.ui;
 
 import java.util.HashMap;
 

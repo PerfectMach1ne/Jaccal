@@ -12,9 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
-import javacalendar.event.AddEventWindow;
-import javacalendar.event.ChangeEventWindow;
-import javacalendar.event.RemoveEventWindow;
+import javacalendar.event.ui.AddEventWindow;
+import javacalendar.event.ui.ChangeEventWindow;
+import javacalendar.event.ui.RemoveEventWindow;
 import javacalendar.minicalendar.MiniCalendarPanel;
 
 public class LeftBarPanel extends JPanel implements ActionListener {

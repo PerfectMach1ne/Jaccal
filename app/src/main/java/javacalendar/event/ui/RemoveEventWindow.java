@@ -1,4 +1,4 @@
-package javacalendar.event;
+package javacalendar.event.ui;
 
 import javacalendar.util.WeekdayUtils;
 

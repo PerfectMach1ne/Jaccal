@@ -9,9 +9,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javacalendar.event.AddEventWindow;
-import javacalendar.event.ChangeEventWindow;
-import javacalendar.event.RemoveEventWindow;
+import javacalendar.event.ui.AddEventWindow;
+import javacalendar.event.ui.ChangeEventWindow;
+import javacalendar.event.ui.RemoveEventWindow;
 
 public class MenuBar extends JMenuBar implements ActionListener {
     private JMenuItem calMenuItem2, calSubMenuItem1, calSubMenuItem2, calSubMenuItem3;

@@ -1,4 +1,4 @@
-package javacalendar.event;
+package javacalendar.event.ui;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -29,9 +29,10 @@ import javacalendar.util.LengthRestrictedDocument;
 import javacalendar.util.StringConstants;
 import javacalendar.util.WeekdayUtils;
 
-public class AddEventWindow implements ActionListener, MouseListener, KeyListener {
-    private JFrame addEventFrame = new JFrame();
+public class ChangeEventWindow implements ActionListener, MouseListener, KeyListener {
+    private JFrame changeEventFrame = new JFrame();
 
+    private JComboBox eventComboBox;
     private JTextField eventNameTextField;
     private JTextArea eventDescriptionTextArea;
     private JComboBox weekdayComboBox;
@@ -40,6 +41,7 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
     private JTextField eventStartMinutes;
     private JTextField eventEndHours;
     private JTextField eventEndMinutes;
+    private JLabel chooseEventLabel = new JLabel("Choose an event: ");
     private JLabel eventWeekdayLabel = new JLabel("Day of the week: ");
     private JLabel eventNameLabel = new JLabel("Event name: ");
     private JLabel eventDescriptionLabel = new JLabel("Event description: ");
@@ -50,61 +52,107 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
     private JButton confirmButton;
     private JButton cancelButton;
 
+    private String eventToRemoveKey = new String();
+
+    private String[] eventNames;
+    private String[] eventKeys;
+
     private final int horizontalGap = 5;
     private final int verticalGap = 5;
 
-    public AddEventWindow() {
-        addEventFrame.setBounds(0,0,100,150);
-        addEventFrame.setSize(new Dimension(300,450));
-        addEventFrame.setLocationRelativeTo(null);
-        addEventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        addEventFrame.setResizable(false);
-        addEventFrame.setTitle("Add a new event");
+    public ChangeEventWindow() {
+        changeEventFrame.setBounds(0,0,100,150);
+        changeEventFrame.setSize(new Dimension(325,500));
+        changeEventFrame.setLocationRelativeTo(null);
+        changeEventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        changeEventFrame.setResizable(false);
+        changeEventFrame.setTitle("Change an event");
 
-        addEventFrame.setFocusable(true);
-        addEventFrame.addKeyListener(this);
+        changeEventFrame.setFocusable(true);
+        changeEventFrame.addKeyListener(this);
 
-        addEventFrame.getContentPane().setLayout(new GridBagLayout());
+        changeEventFrame.getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
-        addEventFrame.setVisible(true);
+        changeEventFrame.setVisible(true);
 
-        // Event weekday label
+        eventNames = new String[CalendarEventHandler.eventNames.size()];
+        eventKeys = new String[CalendarEventHandler.eventNames.size()];
+        String[] parsedEventNames = new String[CalendarEventHandler.eventNames.size()];
+        int i = 0;
+        for (String eventName : CalendarEventHandler.eventNames.values()) {
+            eventNames[i] = eventName;
+            i++;
+        } i = 0;
+        for (String key : CalendarEventHandler.eventNames.keySet()) {
+            eventKeys[i] = key;
+            i++;
+        } i = 0;
+        // Converts integers from [0,6] interval to days of the week
+        for (String eventName : eventNames) {
+            String key = eventKeys[i];
+            int day = Integer.parseInt(String.valueOf(key.charAt(0)));
+            parsedEventNames[i] = eventName + " (" + WeekdayUtils.weekdayToString(day) + ")";
+            i++;
+        }
+
+        // Choose an event label
         constraint.insets = new Insets(horizontalGap, 0, horizontalGap, 0);
         constraint.gridx = 0;
         constraint.gridy = 0;
-        addEventFrame.add(eventWeekdayLabel, constraint);
+        changeEventFrame.add(chooseEventLabel, constraint);
+
+        // Choose an event ComboBox
+        constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
+        eventComboBox = new JComboBox(parsedEventNames);
+        eventComboBox.setEditable(false);
+        eventComboBox.addActionListener(this);
+        constraint.gridx = 0;
+        constraint.gridy = 1;
+        constraint.gridwidth = 3;
+
+        changeEventFrame.add(eventComboBox, constraint);
+
+        // Event weekday label
+        constraint.insets = new Insets(horizontalGap, 0, horizontalGap, 5);
+        constraint.gridx = 0;
+        constraint.gridy = 2;
+        changeEventFrame.add(eventWeekdayLabel, constraint);
+
+        constraint.gridx = 1;
+        constraint.gridy = 2;
+        changeEventFrame.add(new JLabel(""), constraint); // Ugly but at least fixes a weird bug
 
         // Choose the day of the week ComboBox
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
         weekdayComboBox = new JComboBox(StringConstants.weekdays);
         weekdayComboBox.setEditable(false);
-        constraint.gridx = 1;
-        constraint.gridy = 0;
+        constraint.gridx = 2;
+        constraint.gridy = 2;
         constraint.gridwidth = 3;
 
-        addEventFrame.add(weekdayComboBox, constraint);
+        changeEventFrame.add(weekdayComboBox, constraint);
 
         // Event name label
         constraint.insets = new Insets(horizontalGap, 0, horizontalGap, 0);
         constraint.gridx = 0;
-        constraint.gridy = 1;
-        addEventFrame.add(eventNameLabel, constraint);
+        constraint.gridy = 3;
+        changeEventFrame.add(eventNameLabel, constraint);
 
         // Enter event name TextField
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
         eventNameTextField = new JTextField();
         eventNameTextField.setPreferredSize(new Dimension(150,20));
         constraint.gridx = 0;
-        constraint.gridy = 2;
+        constraint.gridy = 4;
 
-        addEventFrame.add(eventNameTextField, constraint);
+        changeEventFrame.add(eventNameTextField, constraint);
 
         // Event description label
         constraint.insets = new Insets(horizontalGap, 0, horizontalGap, 0);
         constraint.gridx = 0;
-        constraint.gridy = 3;
-        addEventFrame.add(eventDescriptionLabel, constraint);
+        constraint.gridy = 5;
+        changeEventFrame.add(eventDescriptionLabel, constraint);
 
         // Write an event description TextArea
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
@@ -113,36 +161,34 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
         eventDescriptionTextArea.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         eventDescriptionTextArea.setLineWrap(true);
         constraint.gridx = 0;
-        constraint.gridy = 4;
+        constraint.gridy = 6;
 
-        addEventFrame.add(eventDescriptionTextArea, constraint);
+        changeEventFrame.add(eventDescriptionTextArea, constraint);
 
-        // Event time label
+        // Event choose color label
         constraint.insets = new Insets(horizontalGap, 0, horizontalGap, 0);
         constraint.gridx = 0;
-        constraint.gridy = 5;
-        addEventFrame.add(eventColorLabel, constraint);
+        constraint.gridy = 7;
+        changeEventFrame.add(eventColorLabel, constraint);
 
         // Choose a color ComboBox
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
         colorComboBox = new JComboBox(StringConstants.comboBoxColorNames);
         colorComboBox.setEditable(false);
         constraint.gridx = 0;
-        constraint.gridy = 6;
+        constraint.gridy = 8;
 
-        addEventFrame.add(colorComboBox, constraint);
+        changeEventFrame.add(colorComboBox, constraint);
 
         // Event time label
         constraint.insets = new Insets(horizontalGap, 0, horizontalGap, 0);
         constraint.gridx = 0;
-        constraint.gridy = 7;
-        addEventFrame.add(eventTimeLabel, constraint);
+        constraint.gridy = 9;
+        changeEventFrame.add(eventTimeLabel, constraint);
 
         // Event start time TextFields
         JPanel eventStartTimePanel = new JPanel();
         eventStartTimePanel.setLayout(new FlowLayout());
-//        eventStartTimePanel.setPreferredSize(new Dimension(70,20));
-//        eventStartTimePanel.setOpaque(false);
         constraint.gridx = 0;
         constraint.gridy = 10;
         eventStartHours = new JTextField();
@@ -156,15 +202,14 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
         eventStartTimePanel.add(doubleColonLabel1);
         eventStartTimePanel.add(eventStartMinutes);
 
-        addEventFrame.add(eventStartTimePanel, constraint);
+        changeEventFrame.add(eventStartTimePanel, constraint);
 
         // Event end time TextFields
         JPanel eventEndTimePanel = new JPanel();
         eventEndTimePanel.setLayout(new FlowLayout());
-//        eventEndTimePanel.setPreferredSize(new Dimension(70,20));
         constraint.gridx = 0;
         constraint.gridy = 11;
-        addEventFrame.add(eventEndTimePanel);
+        changeEventFrame.add(eventEndTimePanel);
         eventEndHours = new JTextField();
         eventEndHours.setPreferredSize(new Dimension(30, 20));
         eventEndHours.setDocument(new LengthRestrictedDocument(2));
@@ -176,41 +221,56 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
         eventEndTimePanel.add(doubleColonLabel2);
         eventEndTimePanel.add(eventEndMinutes);
 
-        addEventFrame.add(eventEndTimePanel, constraint);
+        changeEventFrame.add(eventEndTimePanel, constraint);
 
-        // Add event button
+        // Change event button
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
         confirmButton = new JButton();
-        confirmButton.setText("Add event");
+        confirmButton.setText("Change event");
         confirmButton.setFocusable(false);
-//        confirmButton.addActionListener(this);
         confirmButton.addMouseListener(this);
         constraint.gridwidth = 1;
         constraint.gridx = 0;
         constraint.gridy = 12;
         constraint.anchor = GridBagConstraints.PAGE_END;
 
-        addEventFrame.add(confirmButton, constraint);
+        changeEventFrame.add(confirmButton, constraint);
 
         // Cancel button
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
         cancelButton = new JButton();
         cancelButton.setText("Cancel");
         cancelButton.setFocusable(false);
-//        cancelButton.addActionListener(this);
         cancelButton.addMouseListener(this);
         constraint.gridwidth = 1;
         constraint.gridx = 1;
         constraint.gridy = 12;
         constraint.anchor = GridBagConstraints.PAGE_END;
 
-        addEventFrame.add(cancelButton, constraint);
+        changeEventFrame.add(cancelButton, constraint);
 
         makeEverythingFocusable();
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {}
+    public void actionPerformed(ActionEvent e) {
+        if ( e.getSource() == eventComboBox ) {
+            String selectedEventKey = eventKeys[eventComboBox.getSelectedIndex()];
+            System.out.println(selectedEventKey);
+            eventToRemoveKey = selectedEventKey;
+            System.out.println(eventToRemoveKey);
+            weekdayComboBox.setSelectedIndex(CalendarEventHandler.eventDays.get(selectedEventKey));
+            eventNameTextField.setText(CalendarEventHandler.eventNames.get(selectedEventKey));
+            eventDescriptionTextArea.setText(CalendarEventHandler.eventDescriptions.get(selectedEventKey));
+            String colorString = Colors.getPrettyNameFromColor(CalendarEventHandler.eventColors.get(selectedEventKey));
+            colorComboBox.setSelectedItem(colorString);
+            eventStartHours.setText(CalendarEventHandler.eventStartHours.get(selectedEventKey).substring(0,2));
+            eventStartMinutes.setText(CalendarEventHandler.eventStartHours.get(selectedEventKey).substring(3));
+            eventEndHours.setText(CalendarEventHandler.eventEndHours.get(selectedEventKey).substring(0,2));
+            eventEndMinutes.setText(CalendarEventHandler.eventEndHours.get(selectedEventKey).substring(3));
+        }
+    }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {}
@@ -227,15 +287,15 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
                 JOptionPane.showMessageDialog(null, "An error occurred while parsing day of the week.",
                         "Input error", JOptionPane.ERROR_MESSAGE);
                 System.out.println("Error: String to weekday integer conversion returned -1.");
-                addEventFrame.dispose();
+                changeEventFrame.dispose();
             }
             String colorString = colorComboBox.getSelectedItem().toString();
             Color actualColor = Color.decode(Colors.getColorFromName(colorString).getHexColor());
             // Check if proper hours have been entered
             boolean properTimeConditions;
             while(true) {
-                // This try-catch is for the most part identical to the one from ChangeEventWindow
-                // May try to work on eliminating that later
+                // This try-catch is for the most part identical to the one from AddEventWindow
+                // Might try to fix that later
                 try {
                     // Ensures given hours and minutes are from correct integer intervals ([0,24] for hours, [0, 59] for minutes)
                     properTimeConditions = (Integer.parseInt( eventStartHours.getText()) >= 0 && Integer.parseInt(eventStartHours.getText()) <= 24)
@@ -271,24 +331,25 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
                         if (Integer.parseInt(eventEndHours.getText()) == 24) {
                             fixedEndHours = "00";
                         }
+
+                        // Dispose of the old event in style
+                        if ( CalendarEventHandler.eventStorage.containsKey(eventToRemoveKey) ) {
+                            CalendarEventHandler.removeCalendarEventByHashKey(eventToRemoveKey);
+                        }
                         // Final end & start time formatting
                         String eventStartTime = fixedStartHours + ":" + fixedStartMinutes;
                         String eventEndTime = fixedEndHours + ":" + fixedEndMinutes;
-                        String eventKey = CalendarEventHandler.getEventKey(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
+                        String editedEventKey = CalendarEventHandler.getEventKey(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
                                 CalendarEventHandler.processHoursIntoEventStartValue(eventStartTime),
                                 CalendarEventHandler.processHoursIntoEventEndValue(eventEndTime));
                         // This condition check fixes a bug where events get added twice
-                        if ( !CalendarEventHandler.eventStorage.containsKey(eventKey) ) {
+                        if ( !CalendarEventHandler.eventStorage.containsKey(editedEventKey) ) {
                             // Actually add the event
                             CalendarEventHandler.addCalendarEvent(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
                                     eventDescriptionTextArea.getText(), actualColor,
                                     Colors.getColorFromName(colorString).getProperTextColor(), eventStartTime, eventEndTime);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "This event already exists!",
-                                    "Error", JOptionPane.ERROR_MESSAGE);
-                            break;
                         }
-                        addEventFrame.dispose();
+                        changeEventFrame.dispose();
                         break;
                     }
                 } catch (NumberFormatException nfe) {
@@ -299,7 +360,7 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
                 }
             }
         } else if ( e.getSource() == cancelButton ) {
-            addEventFrame.dispose();
+            changeEventFrame.dispose();
         }
     }
 
@@ -314,11 +375,11 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
 
     @Override
     public void keyPressed(KeyEvent e) {
-      if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-          addEventFrame.dispose();
-      } else if ((e.getKeyCode() == KeyEvent.VK_W) && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
-        addEventFrame.dispose();
-      }
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            changeEventFrame.dispose();
+        } else if ((e.getKeyCode() == KeyEvent.VK_W) && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
+            changeEventFrame.dispose();
+        }
     }
 
     @Override
@@ -327,8 +388,8 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
     private void makeEverythingFocusable() {
         /* Ensures that all window components are focusable so that Swing focus subsystem doesn't prevent the window
          * from being closed when it's not focused. */
-        Component[] windowComponents = { eventNameTextField, eventDescriptionTextArea, weekdayComboBox, colorComboBox,
-                                        eventStartHours, eventStartMinutes, eventEndHours, eventEndMinutes };
+        Component[] windowComponents = { eventComboBox, eventNameTextField, eventDescriptionTextArea, weekdayComboBox,
+                colorComboBox, eventStartHours, eventStartMinutes, eventEndHours, eventEndMinutes };
         for (Component c : windowComponents) {
             c.setFocusable(true);
             c.addKeyListener(this);
