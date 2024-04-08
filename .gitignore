@@ -1,8 +1,40 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+.metals/metals.log
+.metals/metals.mv.db
 
-# Ignore Gradle build output directory
-build
-*.pdn
-*.png
-source.txt
+# macOS
+.DS_Store
+
+# sbt specific
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+project/local-plugins.sbt
+.history
+.ensime
+.ensime_cache/
+.sbt-scripted/
+local.sbt
+
+# Bloop
+.bsp
+
+# VS Code
+.vscode/
+
+# Metals
+.bloop/
+.metals/
+.metals/**
+metals.sbt
+.log
+.db
+.mv.db
+
+
+# IDEA
+.idea
+.idea_modules
+/.worksheet/
