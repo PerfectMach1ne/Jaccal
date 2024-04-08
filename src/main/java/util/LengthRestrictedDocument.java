@@ -5,7 +5,7 @@
 // so I just yoinked the solution for it from there:
 // https://stackoverflow.com/questions/13075564/limiting-length-of-input-in-jtextfield-is-not-working
 //
-package javacalendar.util;
+package main.java.util;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

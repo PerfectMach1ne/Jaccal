@@ -8,15 +8,15 @@ import javax.swing.SwingUtilities;
 
 import javacalendar.mainui.*;
 
-public class Main implements KeyListener {
+public class a implements KeyListener {
     private final JFrame mainWindow;
 
     public static final int WINDOW_WIDTH = 1450;
     public static final int WINDOW_HEIGHT = 800; // Originally 850
 
-    public Main() {
-      // MySQL JDBC driver connection (does that work? we'll see!).
-      try {
+    public a() {
+        // MySQL JDBC driver connection (does that work? we'll see!).
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class Main implements KeyListener {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Invoking a runnable asynchronously (the lambda is the "Runnable" class; or the run() method).
-            Main window = new Main();
+            a window = new a();
             window.mainWindow.setVisible(true);
         });
     }

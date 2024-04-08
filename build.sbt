@@ -9,6 +9,7 @@ lazy val root = project
     scalaVersion := scala3Version,
 
     libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test,
+    libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0",
     libraryDependencies += "org.scalafx" %% "scalafx" % "21.0.0-R32",
 
     scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-feature")

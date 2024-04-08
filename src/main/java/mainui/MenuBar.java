@@ -1,4 +1,4 @@
-package javacalendar.mainui;
+package main.java.mainui;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -9,9 +9,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javacalendar.event.ui.AddEventWindow;
-import javacalendar.event.ui.ChangeEventWindow;
-import javacalendar.event.ui.RemoveEventWindow;
+// import main.java.event.ui.AddEventWindow;
+// import main.java.event.ui.ChangeEventWindow;
+// import main.java.event.ui.RemoveEventWindow;
 
 public class MenuBar extends JMenuBar implements ActionListener {
     private JMenuItem calMenuItem2, calSubMenuItem1, calSubMenuItem2, calSubMenuItem3;
@@ -65,11 +65,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
         if (e.getSource() == calMenuItem2) {
             System.exit(0);
         } else if (e.getSource() == calSubMenuItem1) {
-            new AddEventWindow();
+            // new AddEventWindow();
         } else if (e.getSource() == calSubMenuItem2) {
-            new ChangeEventWindow();
+            // new ChangeEventWindow();
         } else if (e.getSource() == calSubMenuItem3) {
-            new RemoveEventWindow();
+            // new RemoveEventWindow();
         } else if (e.getSource() == helpMenuItem1) {
             // new TutorialWindow
         } else if (e.getSource() == aboutMenuItem1) {

@@ -1,4 +1,4 @@
-package javacalendar.minicalendar;
+package main.java.minicalendar;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import javacalendar.util.StringConstants;
+import main.java.util.StringConstants;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

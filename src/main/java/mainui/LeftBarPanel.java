@@ -1,4 +1,4 @@
-package javacalendar.mainui;
+package main.java.mainui;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -12,10 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
-import javacalendar.event.ui.AddEventWindow;
-import javacalendar.event.ui.ChangeEventWindow;
-import javacalendar.event.ui.RemoveEventWindow;
-import javacalendar.minicalendar.MiniCalendarPanel;
+// import main.java.event.ui.AddEventWindow;
+// import main.java.event.ui.ChangeEventWindow;
+// import main.java.event.ui.RemoveEventWindow;
+import main.java.minicalendar.MiniCalendarPanel;
 
 public class LeftBarPanel extends JPanel implements ActionListener {
     private final int PARENT_PANEL_WIDTH = 250;
@@ -80,11 +80,11 @@ public class LeftBarPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if ( e.getSource() == addEventButton ) {
-            new AddEventWindow();
+            // new AddEventWindow();
         } else if ( e.getSource() == changeEventButton ) {
-            new ChangeEventWindow();
+            // new ChangeEventWindow();
         } else if ( e.getSource() == removeEventButton ) {
-            new RemoveEventWindow();
+            // new RemoveEventWindow();
         }
     }
 }

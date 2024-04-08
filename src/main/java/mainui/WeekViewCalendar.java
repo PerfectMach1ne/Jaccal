@@ -1,4 +1,4 @@
-package javacalendar.mainui;
+package main.java.mainui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,8 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 
-import javacalendar.datelogic.WeekCalendarHandler;
-import javacalendar.util.StringConstants;
+import main.java.datelogic.WeekCalendarHandler;
+import main.java.util.StringConstants;
 
 public class WeekViewCalendar extends JScrollPane implements MouseListener {
     private final int PARENT_PANEL_WIDTH = 1122;
