@@ -1,4 +1,4 @@
-package javacalendar.event;
+package javacalendar.event.model;
 
 public class Event {
     Event() {}

@@ -1,4 +1,4 @@
-package javacalendar.event;
+package javacalendar.event.render;
 
 public class EventRenderer {
     EventRenderer() {}
