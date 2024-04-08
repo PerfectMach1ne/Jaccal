@@ -274,20 +274,20 @@ public class AddEventWindow implements ActionListener, MouseListener, KeyListene
                         // Final end & start time formatting
                         String eventStartTime = fixedStartHours + ":" + fixedStartMinutes;
                         String eventEndTime = fixedEndHours + ":" + fixedEndMinutes;
-                        String eventKey = CalendarEventHandler.getEventKey(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
-                                CalendarEventHandler.processHoursIntoEventStartValue(eventStartTime),
-                                CalendarEventHandler.processHoursIntoEventEndValue(eventEndTime));
-                        // This condition check fixes a bug where events get added twice
-                        if ( !CalendarEventHandler.eventStorage.containsKey(eventKey) ) {
-                            // Actually add the event
-                            CalendarEventHandler.addCalendarEvent(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
-                                    eventDescriptionTextArea.getText(), actualColor,
-                                    Colors.getColorFromName(colorString).getProperTextColor(), eventStartTime, eventEndTime);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "This event already exists!",
-                                    "Error", JOptionPane.ERROR_MESSAGE);
-                            break;
-                        }
+                        // String eventKey = CalendarEventHandler.getEventKey(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
+                        //         CalendarEventHandler.processHoursIntoEventStartValue(eventStartTime),
+                        //         CalendarEventHandler.processHoursIntoEventEndValue(eventEndTime));
+                        // // This condition check fixes a bug where events get added twice
+                        // if ( !CalendarEventHandler.eventStorage.containsKey(eventKey) ) {
+                        //     // Actually add the event
+                        //     CalendarEventHandler.addCalendarEvent(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
+                        //             eventDescriptionTextArea.getText(), actualColor,
+                        //             Colors.getColorFromName(colorString).getProperTextColor(), eventStartTime, eventEndTime);
+                        // } else {
+                        //     JOptionPane.showMessageDialog(null, "This event already exists!",
+                        //             "Error", JOptionPane.ERROR_MESSAGE);
+                        //     break;
+                        // }
                         addEventFrame.dispose();
                         break;
                     }

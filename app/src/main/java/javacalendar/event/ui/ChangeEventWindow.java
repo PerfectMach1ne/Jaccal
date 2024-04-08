@@ -76,25 +76,25 @@ public class ChangeEventWindow implements ActionListener, MouseListener, KeyList
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
         changeEventFrame.setVisible(true);
 
-        eventNames = new String[CalendarEventHandler.eventNames.size()];
-        eventKeys = new String[CalendarEventHandler.eventNames.size()];
-        String[] parsedEventNames = new String[CalendarEventHandler.eventNames.size()];
-        int i = 0;
-        for (String eventName : CalendarEventHandler.eventNames.values()) {
-            eventNames[i] = eventName;
-            i++;
-        } i = 0;
-        for (String key : CalendarEventHandler.eventNames.keySet()) {
-            eventKeys[i] = key;
-            i++;
-        } i = 0;
+        // eventNames = new String[CalendarEventHandler.eventNames.size()];
+        // eventKeys = new String[CalendarEventHandler.eventNames.size()];
+        // String[] parsedEventNames = new String[CalendarEventHandler.eventNames.size()];
+        // int i = 0;
+        // for (String eventName : CalendarEventHandler.eventNames.values()) {
+        //     eventNames[i] = eventName;
+        //     i++;
+        // } i = 0;
+        // for (String key : CalendarEventHandler.eventNames.keySet()) {
+        //     eventKeys[i] = key;
+        //     i++;
+        // } i = 0;
         // Converts integers from [0,6] interval to days of the week
-        for (String eventName : eventNames) {
-            String key = eventKeys[i];
-            int day = Integer.parseInt(String.valueOf(key.charAt(0)));
-            parsedEventNames[i] = eventName + " (" + WeekdayUtils.weekdayToString(day) + ")";
-            i++;
-        }
+        // for (String eventName : eventNames) {
+        //     String key = eventKeys[i];
+        //     int day = Integer.parseInt(String.valueOf(key.charAt(0)));
+        //     parsedEventNames[i] = eventName + " (" + WeekdayUtils.weekdayToString(day) + ")";
+        //     i++;
+        // }
 
         // Choose an event label
         constraint.insets = new Insets(horizontalGap, 0, horizontalGap, 0);
@@ -104,7 +104,7 @@ public class ChangeEventWindow implements ActionListener, MouseListener, KeyList
 
         // Choose an event ComboBox
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
-        eventComboBox = new JComboBox(parsedEventNames);
+        // eventComboBox = new JComboBox(parsedEventNames);
         eventComboBox.setEditable(false);
         eventComboBox.addActionListener(this);
         constraint.gridx = 0;
@@ -259,15 +259,15 @@ public class ChangeEventWindow implements ActionListener, MouseListener, KeyList
             System.out.println(selectedEventKey);
             eventToRemoveKey = selectedEventKey;
             System.out.println(eventToRemoveKey);
-            weekdayComboBox.setSelectedIndex(CalendarEventHandler.eventDays.get(selectedEventKey));
-            eventNameTextField.setText(CalendarEventHandler.eventNames.get(selectedEventKey));
-            eventDescriptionTextArea.setText(CalendarEventHandler.eventDescriptions.get(selectedEventKey));
-            String colorString = Colors.getPrettyNameFromColor(CalendarEventHandler.eventColors.get(selectedEventKey));
-            colorComboBox.setSelectedItem(colorString);
-            eventStartHours.setText(CalendarEventHandler.eventStartHours.get(selectedEventKey).substring(0,2));
-            eventStartMinutes.setText(CalendarEventHandler.eventStartHours.get(selectedEventKey).substring(3));
-            eventEndHours.setText(CalendarEventHandler.eventEndHours.get(selectedEventKey).substring(0,2));
-            eventEndMinutes.setText(CalendarEventHandler.eventEndHours.get(selectedEventKey).substring(3));
+            // weekdayComboBox.setSelectedIndex(CalendarEventHandler.eventDays.get(selectedEventKey));
+            // eventNameTextField.setText(CalendarEventHandler.eventNames.get(selectedEventKey));
+            // eventDescriptionTextArea.setText(CalendarEventHandler.eventDescriptions.get(selectedEventKey));
+            // String colorString = Colors.getPrettyNameFromColor(CalendarEventHandler.eventColors.get(selectedEventKey));
+            // colorComboBox.setSelectedItem(colorString);
+            // eventStartHours.setText(CalendarEventHandler.eventStartHours.get(selectedEventKey).substring(0,2));
+            // eventStartMinutes.setText(CalendarEventHandler.eventStartHours.get(selectedEventKey).substring(3));
+            // eventEndHours.setText(CalendarEventHandler.eventEndHours.get(selectedEventKey).substring(0,2));
+            // eventEndMinutes.setText(CalendarEventHandler.eventEndHours.get(selectedEventKey).substring(3));
         }
     }
 
@@ -333,22 +333,22 @@ public class ChangeEventWindow implements ActionListener, MouseListener, KeyList
                         }
 
                         // Dispose of the old event in style
-                        if ( CalendarEventHandler.eventStorage.containsKey(eventToRemoveKey) ) {
-                            CalendarEventHandler.removeCalendarEventByHashKey(eventToRemoveKey);
-                        }
+                        // if ( CalendarEventHandler.eventStorage.containsKey(eventToRemoveKey) ) {
+                        //     CalendarEventHandler.removeCalendarEventByHashKey(eventToRemoveKey);
+                        // }
                         // Final end & start time formatting
                         String eventStartTime = fixedStartHours + ":" + fixedStartMinutes;
                         String eventEndTime = fixedEndHours + ":" + fixedEndMinutes;
-                        String editedEventKey = CalendarEventHandler.getEventKey(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
-                                CalendarEventHandler.processHoursIntoEventStartValue(eventStartTime),
-                                CalendarEventHandler.processHoursIntoEventEndValue(eventEndTime));
-                        // This condition check fixes a bug where events get added twice
-                        if ( !CalendarEventHandler.eventStorage.containsKey(editedEventKey) ) {
-                            // Actually add the event
-                            CalendarEventHandler.addCalendarEvent(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
-                                    eventDescriptionTextArea.getText(), actualColor,
-                                    Colors.getColorFromName(colorString).getProperTextColor(), eventStartTime, eventEndTime);
-                        }
+                        // String editedEventKey = CalendarEventHandler.getEventKey(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
+                        //         CalendarEventHandler.processHoursIntoEventStartValue(eventStartTime),
+                        //         CalendarEventHandler.processHoursIntoEventEndValue(eventEndTime));
+                        // // This condition check fixes a bug where events get added twice
+                        // if ( !CalendarEventHandler.eventStorage.containsKey(editedEventKey) ) {
+                        //     // Actually add the event
+                        //     CalendarEventHandler.addCalendarEvent(WeekdayUtils.stringToWeekday(weekdayString), eventNameTextField.getText(),
+                        //             eventDescriptionTextArea.getText(), actualColor,
+                        //             Colors.getColorFromName(colorString).getProperTextColor(), eventStartTime, eventEndTime);
+                        // }
                         changeEventFrame.dispose();
                         break;
                     }

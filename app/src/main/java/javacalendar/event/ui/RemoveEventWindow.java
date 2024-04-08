@@ -45,25 +45,25 @@ public class RemoveEventWindow implements ActionListener, KeyListener {
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
         removeEventFrame.setVisible(true);
 
-        eventNames = new String[CalendarEventHandler.eventNames.size()];
-        eventKeys = new String[CalendarEventHandler.eventNames.size()];
-        String[] parsedEventNames = new String[CalendarEventHandler.eventNames.size()];
-        int i = 0;
-        for (String eventName : CalendarEventHandler.eventNames.values()) {
-            eventNames[i] = eventName;
-            i++;
-        } i = 0;
-        for (String key : CalendarEventHandler.eventNames.keySet()) {
-            eventKeys[i] = key;
-            i++;
-        } i = 0;
+        // eventNames = new String[CalendarEventHandler.eventNames.size()];
+        // eventKeys = new String[CalendarEventHandler.eventNames.size()];
+        // String[] parsedEventNames = new String[CalendarEventHandler.eventNames.size()];
+        // int i = 0;
+        // for (String eventName : CalendarEventHandler.eventNames.values()) {
+        //     eventNames[i] = eventName;
+        //     i++;
+        // } i = 0;
+        // for (String key : CalendarEventHandler.eventNames.keySet()) {
+        //     eventKeys[i] = key;
+        //     i++;
+        // } i = 0;
         // Zamienia dni tygodnia z liczb od 0 do 6 na pełne angielskie nazwy
-        for (String eventName : eventNames) {
-            String key = eventKeys[i];
-            int day = Integer.parseInt(String.valueOf(key.charAt(0)));
-            parsedEventNames[i] = eventName + " (" + WeekdayUtils.weekdayToString(day) + ")";
-            i++;
-        }
+        // for (String eventName : eventNames) {
+        //     String key = eventKeys[i];
+        //     int day = Integer.parseInt(String.valueOf(key.charAt(0)));
+        //     parsedEventNames[i] = eventName + " (" + WeekdayUtils.weekdayToString(day) + ")";
+        //     i++;
+        // }
 
         // Choose an event label
         constraint.insets = new Insets(horizontalGap, 0, horizontalGap, 0);
@@ -73,7 +73,7 @@ public class RemoveEventWindow implements ActionListener, KeyListener {
 
         // Choose an event ComboBox
         constraint.insets = new Insets(horizontalGap, verticalGap, horizontalGap, verticalGap);
-        eventComboBox = new JComboBox(parsedEventNames);
+        // eventComboBox = new JComboBox(parsedEventNames);
         eventComboBox.setEditable(false);
         constraint.gridx = 0;
         constraint.gridy = 1;
@@ -115,9 +115,9 @@ public class RemoveEventWindow implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
         if ( e.getSource() == confirmButton ) {
             String chosenEventKey = eventKeys[eventComboBox.getSelectedIndex()];
-            if ( CalendarEventHandler.eventStorage.containsKey(chosenEventKey) ) {
-                CalendarEventHandler.removeCalendarEventByHashKey(chosenEventKey);
-            }
+            // if ( CalendarEventHandler.eventStorage.containsKey(chosenEventKey) ) {
+            //     CalendarEventHandler.removeCalendarEventByHashKey(chosenEventKey);
+            // }
             removeEventFrame.dispose();
         } else if ( e.getSource() == cancelButton ) {
             removeEventFrame.dispose();
