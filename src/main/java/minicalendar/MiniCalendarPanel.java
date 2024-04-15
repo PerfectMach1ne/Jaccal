@@ -24,7 +24,7 @@ public class MiniCalendarPanel extends JPanel {
     private final double FONT_TO_LABEL_HEIGHT_RATIO = 0.5625;
     
     private final int PARENT_PANEL_HEIGHT = 144;
-    private final int PARENT_PANEL_WIDTH = 218;
+    private final int PARENT_PANEL_WIDTH = 244;
 
     private JPanel internalPanel;
 
