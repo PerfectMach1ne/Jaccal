@@ -17,7 +17,7 @@ import java.time.LocalDate;
 // import main.java.event.ui.RemoveEventWindow;
 import main.java.minicalendar.MiniCalendarPanel;
 
-public class LeftBarPanel extends JPanel implements ActionListener {
+public class LeftBarView extends JPanel implements ActionListener {
     private final int PARENT_PANEL_WIDTH = 250;
     private final int PARENT_PANEL_HEIGHT = 800;
 
@@ -30,7 +30,7 @@ public class LeftBarPanel extends JPanel implements ActionListener {
     private JButton changeEventButton;
     private JButton removeEventButton;
 
-    public LeftBarPanel() {
+    public LeftBarView() {
         this.setLayout(new FlowLayout());
         this.setAlignmentX(CENTER_ALIGNMENT);
         

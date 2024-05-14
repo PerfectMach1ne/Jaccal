@@ -20,7 +20,7 @@ import javax.swing.ScrollPaneLayout;
 import main.java.datelogic.WeekCalendarHandler;
 import main.java.util.StringConstants;
 
-public class WeekViewCalendar extends JScrollPane implements MouseListener {
+public class WeekCalendarView extends JScrollPane implements MouseListener {
     private final int PARENT_PANEL_WIDTH = 1122;
     private final int PARENT_PANEL_HEIGHT = 780;
 
@@ -58,7 +58,7 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
 
     private LocalDate selectedDate = WeekCalendarHandler.getCurrentWeekDate();
 
-    public WeekViewCalendar() {
+    public WeekCalendarView() {
         this.setLayout(new ScrollPaneLayout());
         this.setBackground(Color.gray);
         this.createHorizontalScrollBar();
@@ -122,7 +122,7 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
         panel = new JPanel();
 
         panel.setPreferredSize(new Dimension(PARENT_PANEL_WIDTH, PARENT_PANEL_HEIGHT));
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         // Add the 7 weekdaySlices
         for (int i = 0; i < 7; i++) {
