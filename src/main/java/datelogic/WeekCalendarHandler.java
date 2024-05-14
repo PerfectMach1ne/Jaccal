@@ -6,10 +6,10 @@ public class WeekCalendarHandler {
     /**
      * Offset the LocalDate instance (passed as a parameter) by the amount of days required to set it
      * at the first day of the week (so, tl;dr: offsets a LocalDate instance to Monday).
-     * @param localDate - a LocalDate instance.
-     * @return firstMonthWeekday - month.
+     * @param       localDate           : a LocalDate instance.
+     * @return      firstMonthWeekday   : month.
      */
-    public static LocalDate getOffsetDate(LocalDate localDate) {
+    public static LocalDate getOffsetDate_(LocalDate localDate) {
         // Subtract an x in the interval [0,6] from the localDate:
         return localDate.minusDays(localDate.getDayOfWeek().getValue() - 1);
     }
@@ -17,12 +17,12 @@ public class WeekCalendarHandler {
     /**
      * Returns an instance of LocalDate.now() offset to a Monday (so the first day of the week).
      * It has to be a LocalDate instance specifically, so that time isn't included in this method.
-     * @return LocalDate
+     * @return      LocalDate   : a LocalDate instance set at Monday.
      */
     public static LocalDate getCurrentWeekDate() {
         LocalDate currentDate = LocalDate.now();
         
-        LocalDate offsetDate = getOffsetDate(currentDate);
+        LocalDate offsetDate = getOffsetDate_(currentDate);
         int mondayMonthday = offsetDate.getDayOfMonth();
 
         return LocalDate.of(offsetDate.getYear(), offsetDate.getMonthValue(), mondayMonthday);
@@ -33,13 +33,13 @@ public class WeekCalendarHandler {
      * (so the first day of the week).
      * It has to be a LocalDate instance specifically, so that time isn't included in this method.
      * 
-     * @param date
-     * @return LocalDate
+     * @param       date
+     * @return      LocalDate   : a LocalDate instance set at Monday of past week.
      */
     public static LocalDate getPastWeekDate(LocalDate date) {
         date = date.minusWeeks(1);
         
-        LocalDate offsetDate = getOffsetDate(date);
+        LocalDate offsetDate = getOffsetDate_(date);
         int mondayMonthday = offsetDate.getDayOfMonth();
 
         return LocalDate.of(offsetDate.getYear(), offsetDate.getMonth(), mondayMonthday);
@@ -50,13 +50,13 @@ public class WeekCalendarHandler {
      * (so the first day of the week).
      * It has to be a LocalDate instance specifically, so that time isn't included in this method.
      *
-     * @param date
-     * @return LocalDate
+     * @param       date        : a LocalDate instance.
+     * @return      LocalDate   : a LocalDate instance set at Monday of future week.
      */
     public static LocalDate getFutureWeekDate(LocalDate date) {
         date = date.plusWeeks(1);
         
-        LocalDate offsetDate = getOffsetDate(date);
+        LocalDate offsetDate = getOffsetDate_(date);
         int mondayMonthday = offsetDate.getDayOfMonth();
 
         return LocalDate.of(offsetDate.getYear(), offsetDate.getMonth(), mondayMonthday);
@@ -66,8 +66,8 @@ public class WeekCalendarHandler {
      * Return an array of seven monthdays corresponding to the week of a LocalDate instance
      * (assumes that the LocalDate instance passed as a parameter is offset to Monday).
      * 
-     * @param date
-     * @return int[] - a 7-element array of integer monthdays.
+     * @param       date    : a LocalDate instance.
+     * @return      int[]   : a 7-element array of integer monthdays.
      */
     // Get every monthday of the current week in an array.
     public static int[] getWeekWeekdays(LocalDate date) {

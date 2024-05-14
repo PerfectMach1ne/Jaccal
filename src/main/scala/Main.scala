@@ -33,6 +33,7 @@ object Main extends SimpleSwingApplication:
         * as well as a variety of other methods for handling events in the Scala wrapper of Java Swing.
         * Thus in order to make it possible to close the window with a Ctrl+W shortcut,
         * we need to first wrap everything in anything that inherits a Component class.
+        * In order for the API to actually respond to the events, a Component also needs to be focused.
         * An example of such object would be BorderPanel, which is what conveniently happens to be used there.
         */
       listenTo(this.keys)
