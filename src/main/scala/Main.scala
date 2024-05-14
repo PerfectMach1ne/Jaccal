@@ -14,7 +14,7 @@ object Main extends SimpleSwingApplication, KeyListener:
   val WINDOW_HEIGHT: Int = 800 
   val WINDOW_WIDTH: Int = 1450
 
-  def top: Frame = new MainFrame() {
+  def top: scala.swing.Frame = new MainFrame {
       title = "Jaccal - Java & Scala desktop calendar app"
       preferredSize = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT)
       resizable = true

@@ -259,7 +259,7 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         if ( e.getSource() == weekSwitchCorner.getComponent(1) ) {
-            System.out.println(selectedDate);
+            // System.out.println(selectedDate);
             wrapperPanel.remove(1); // wrapperPanel contains only 2 elements, and the first is always the static weekday panel.
             wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport, (byte)-1));
             wrapperPanel.addMouseListener(this);
@@ -268,7 +268,7 @@ public class WeekViewCalendar extends JScrollPane implements MouseListener {
             this.revalidate();
             this.repaint();
         } else if ( e.getSource() == weekSwitchCorner.getComponent(3) /*weekSwitchButtons[1].getComponent(0)*/ ) {
-            System.out.println(selectedDate);
+            // System.out.println(selectedDate);
             wrapperPanel.remove(1); // wrapperPanel contains only 2 elements, and the first is always the static weekday panel.
             wrapperPanel.add(configMonthdayLabelViewport(monthdayLabelViewport, (byte)1));
             wrapperPanel.addMouseListener(this);
