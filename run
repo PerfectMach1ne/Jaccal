@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pwd
+cd ./target/scala-3.4.1
+scala ./Jaccal-assembly-0.1.0-SNAPSHOT.jar
