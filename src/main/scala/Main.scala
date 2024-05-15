@@ -1,8 +1,8 @@
 package main.scala
 
 import main.java.legacyui.WeekCalendarView
-import main.java.legacyui.LeftBarView
 import main.java.legacyui.MenuBar
+import newui.LeftBarView
 
 import java.awt.event.KeyEvent
 
@@ -10,6 +10,7 @@ import scala.swing._
 import scala.swing.event._
 import scala.swing.event.Key.Modifier
 import scala.swing.event.Key.Location
+
 
 /**
   * SimpleSwingApplication object that creates the main Frame;
@@ -22,11 +23,12 @@ object Main extends SimpleSwingApplication:
   lazy val top: Frame = new MainFrame {
     title = "Jaccal - Java & Scala desktop calendar app"
     preferredSize = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT)
+    minimumSize = new Dimension(WINDOW_WIDTH - 800, WINDOW_HEIGHT - 300)
     resizable = true
 
     contents = new BorderPanel {
+      add(newui.LeftBarView, BorderPanel.Position.West)
       add(Component.wrap(WeekCalendarView()), BorderPanel.Position.Center)
-      add(Component.wrap(LeftBarView()), BorderPanel.Position.West)
 
       /**
         * MainFrame is not a child of Component, which has the keys Object and listensTo() method,
