@@ -1,4 +1,4 @@
-package newui
+package main.scala.newui
 
 import main.java.minicalendar.MiniCalendarPanel
 

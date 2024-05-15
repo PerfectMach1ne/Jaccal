@@ -16,9 +16,26 @@ import scala.swing.event.Key.Location
   * SimpleSwingApplication object that creates the main Frame;
   * it then adds the legacy Java components, wrapping them with a compatibility method for Scala: Component.wrap().
   */
-object Main extends SimpleSwingApplication:
+object Main extends SwingApplication:
+
   val WINDOW_HEIGHT: Int = 800 
   val WINDOW_WIDTH: Int = 1450 - 2 // evil pixel math
+
+  override def startup(args: Array[String]): Unit = {
+    println("a?")
+
+    val t = top
+    if (t.size == new Dimension(0,0)) t.pack()
+    t.visible = true
+  }
+
+  // Methods from https://github.com/scala/scala-swing/blob/a41024194d5a034ecac304aeecd1354b50e05700/src/main/scala/scala/swing/SimpleSwingApplication.scala#L25
+  // This way we get the full classic SimpleSwingApplication featureset, but a customizable startup method.
+  def resourceFromClassloader(path: String): java.net.URL =
+    this.getClass.getResource(path)
+
+  def resourceFromUserDirectory(path: String): java.io.File =
+    new java.io.File(util.Properties.userDir, path)
 
   lazy val top: Frame = new MainFrame {
     title = "Jaccal - Java & Scala desktop calendar app"

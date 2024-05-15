@@ -118,15 +118,15 @@ public class MiniCalendarPanel extends JPanel {
      */
     private void setCorrectLayout(GregorianCalendar gregCalRef) {
         if (gregCalRef.get(Calendar.MONTH) == Calendar.FEBRUARY && gregCalRef.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-            System.out.println("4 week rows");
+            System.out.println("[debug] MiniCalendarPanel: 4 week rows");
             internalPanel.setLayout(new GridLayout(5,7,2,2));
         } else if (gregCalRef.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY ||
                    (gregCalRef.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY &&
                     gregCalRef.getActualMaximum(Calendar.DAY_OF_MONTH) > 30)) {
-            System.out.println("6 week rows");
+            System.out.println("[debug] MiniCalendarPanel: 6 week rows");
             internalPanel.setLayout(new GridLayout(7,7,2,2));
         } else {
-            System.out.println("5 week rows");
+            System.out.println("[debug] MiniCalendarPanel: 5 week rows");
             internalPanel.setLayout(new GridLayout(6,7,2,2));
         }  
     }

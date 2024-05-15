@@ -55,7 +55,7 @@ public class WeekCalendarView extends JScrollPane implements MouseListener {
     private JPanel weekSwitchCorner;
     // This one's a static array, as it needs to be accessible by WeekCalendarHandler, so that it 
     // can add events to it.
-    public static final JPanel[] weekdayPanelArray = new JPanel[7];
+    private final JPanel[] weekdayPanelArray = new JPanel[7];
     private final JLabel[] weekdayLabelArray = new JLabel[7];
     private final JLabel[] monthdayLabelArray = new JLabel[7];
     private final JLabel[] hourLabelArray = new JLabel[24];
@@ -175,7 +175,7 @@ public class WeekCalendarView extends JScrollPane implements MouseListener {
         }
         
         for (int i = 0; i < 7; i++) {
-            System.out.println(monthdays[i]);
+            System.out.println("[debug] WeekViewCalendar: weekday=" + i + ", monthday=" + monthdays[i]);
             panel.add(setupMonthdayLabels(monthdayLabelArray[i], monthdays[i], i));
         }
 
@@ -257,6 +257,15 @@ public class WeekCalendarView extends JScrollPane implements MouseListener {
         switchButton.addMouseListener(this);
         
         return switchButton;
+    }
+    
+    public JPanel[] getWeekdayPanelArray() {
+        return weekdayPanelArray;
+    }
+    
+    public void setWeekdayPanelArray(int weekdayIndex) {
+        // add event components to JPanel weekdayPanelArray[i] 
+        System.out.println("To implement");
     }
 
     @Override
