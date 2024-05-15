@@ -1,8 +1,8 @@
 package main.scala
 
-import main.java.mainui.WeekCalendarView
-import main.java.mainui.LeftBarView
-import main.java.mainui.MenuBar
+import main.java.legacyui.WeekCalendarView
+import main.java.legacyui.LeftBarView
+import main.java.legacyui.MenuBar
 
 import java.awt.event.KeyEvent
 
@@ -17,7 +17,7 @@ import scala.swing.event.Key.Location
   */
 object Main extends SimpleSwingApplication:
   val WINDOW_HEIGHT: Int = 800 
-  val WINDOW_WIDTH: Int = 1450
+  val WINDOW_WIDTH: Int = 1450 - 2 // evil pixel math
 
   lazy val top: Frame = new MainFrame {
     title = "Jaccal - Java & Scala desktop calendar app"

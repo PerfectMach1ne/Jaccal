@@ -1,4 +1,4 @@
-package main.java.mainui;
+package main.java.legacyui;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;

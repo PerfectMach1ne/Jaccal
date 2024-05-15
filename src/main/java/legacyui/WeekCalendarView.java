@@ -1,4 +1,4 @@
-package main.java.mainui;
+package main.java.legacyui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,26 +21,31 @@ import main.java.datelogic.WeekCalendarHandler;
 import main.java.util.StringConstants;
 
 public class WeekCalendarView extends JScrollPane implements MouseListener {
-    private final int PARENT_PANEL_WIDTH = 1122;
-    private final int PARENT_PANEL_HEIGHT = 780;
+    private final int _SHARED_HEIGHT = 850;
+    private final int _SHARED_WIDTH = 1120;
+    private final int _SHARED_COLUMN_WIDTH = 154;
+    private final int _SHARED_COLUMN_LABEL_HEIGHT = 50;
 
-    private final int WEEKDAY_SLICE_WIDTH = 160;
-    private final int WEEKDAY_SLICE_HEIGHT = 780;
+    private final int PARENT_PANEL_WIDTH = _SHARED_WIDTH;
+    private final int PARENT_PANEL_HEIGHT = _SHARED_HEIGHT;
 
-    private final int WEEKDAY_LABEL_PANEL_WIDTH = 1122;
-    private final int WEEKDAY_LABEL_PANEL_HEIGHT = 50;
-    private final int WEEKDAY_LABEL_WIDTH = 154;
-    private final int WEEKDAY_LABEL_HEIGHT = 50;
+    private final int WEEKDAY_SLICE_WIDTH = 160; // 160
+    private final int WEEKDAY_SLICE_HEIGHT = _SHARED_HEIGHT;
 
-    private final int MONTHDAY_LABEL_PANEL_WIDTH = 1122;
+    private final int WEEKDAY_LABEL_PANEL_WIDTH = _SHARED_WIDTH;
+    private final int WEEKDAY_LABEL_PANEL_HEIGHT = _SHARED_COLUMN_LABEL_HEIGHT;
+    private final int WEEKDAY_LABEL_WIDTH = _SHARED_COLUMN_WIDTH;
+    private final int WEEKDAY_LABEL_HEIGHT = _SHARED_COLUMN_LABEL_HEIGHT;
+
+    private final int MONTHDAY_LABEL_PANEL_WIDTH = _SHARED_WIDTH;
     private final int MONTHDAY_LABEL_PANEL_HEIGHT = 50;
-    private final int MONTHDAY_LABEL_WIDTH = 154;
+    private final int MONTHDAY_LABEL_WIDTH = _SHARED_COLUMN_WIDTH;
     private final int MONTHDAY_LABEL_HEIGHT = 50;
 
     private final int HOUR_LABEL_PANEL_WIDTH = 50;
-    private final int HOUR_LABEL_PANEL_HEIGHT = 730;
+    private final int HOUR_LABEL_PANEL_HEIGHT = _SHARED_HEIGHT;
     private final int HOUR_LABEL_WIDTH = 50;
-    private final int HOUR_LABEL_HEIGHT = 25;
+    private final int HOUR_LABEL_HEIGHT = 30;
 
     private JPanel weekViewport;
     private JPanel wrapperPanel;
@@ -114,6 +119,8 @@ public class WeekCalendarView extends JScrollPane implements MouseListener {
 
         // TODO: Put here bottom left corner
         // TODO: Put here bottom right corner
+        this.getVerticalScrollBar().setUnitIncrement(10);
+        this.getHorizontalScrollBar().setUnitIncrement(10);
 
         this.addMouseListener(this);
     }
@@ -203,7 +210,8 @@ public class WeekCalendarView extends JScrollPane implements MouseListener {
     private JLabel setupWeekdayLabels(JLabel weekdayLabel, int iterator) {
         weekdayLabel = new JLabel(StringConstants.weekdays[iterator]);
 
-        weekdayLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        weekdayLabel.setLayout(null);
+        weekdayLabel.setFont(new Font("Arial", Font.BOLD, 20));
         weekdayLabel.setPreferredSize(new Dimension(WEEKDAY_LABEL_WIDTH, WEEKDAY_LABEL_HEIGHT));
         weekdayLabel.setHorizontalTextPosition(JLabel.RIGHT);
         weekdayLabel.setVerticalTextPosition(JLabel.BOTTOM);
@@ -214,7 +222,8 @@ public class WeekCalendarView extends JScrollPane implements MouseListener {
     private JLabel setupMonthdayLabels(JLabel monthdayLabel, int monthday, int iterator) {
         monthdayLabel = new JLabel(Integer.toString(monthday));
 
-        monthdayLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        monthdayLabel.setLayout(null);
+        monthdayLabel.setFont(new Font("Arial", Font.BOLD, 20));
         monthdayLabel.setPreferredSize(new Dimension(MONTHDAY_LABEL_WIDTH, MONTHDAY_LABEL_HEIGHT));
         monthdayLabel.setHorizontalTextPosition(JLabel.RIGHT);
         monthdayLabel.setVerticalTextPosition(JLabel.BOTTOM);

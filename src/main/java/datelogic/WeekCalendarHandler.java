@@ -10,7 +10,7 @@ public class WeekCalendarHandler {
      * @return      firstMonthWeekday   : month.
      */
     public static LocalDate getOffsetDate_(LocalDate localDate) {
-        // Subtract an x in the interval [0,6] from the localDate:
+        // Subtract an x in the interval [0,6] from localDate:
         return localDate.minusDays(localDate.getDayOfWeek().getValue() - 1);
     }
 
