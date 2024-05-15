@@ -13,7 +13,7 @@ import scala.swing.event.Key.Location
 
 
 /**
-  * SimpleSwingApplication object that creates the main Frame;
+  * SwingApplication object that creates the main Frame;
   * it then adds the legacy Java components, wrapping them with a compatibility method for Scala: Component.wrap().
   */
 object Main extends SwingApplication:
@@ -21,12 +21,29 @@ object Main extends SwingApplication:
   val WINDOW_HEIGHT: Int = 800 
   val WINDOW_WIDTH: Int = 1450 - 2 // evil pixel math
 
+
+  // Method based on https://github.com/scala/scala-swing/blob/a41024194d5a034ecac304aeecd1354b50e05700/src/main/scala/scala/swing/SimpleSwingApplication.scala#L25
+  // Basically a "SimpleSwingApplication" sorta from scratch by "forking" the Scala Swing API code.
   override def startup(args: Array[String]): Unit = {
-    println("a?")
+    println("[debug] Calling the startup() method.")
 
     val t = top
     if (t.size == new Dimension(0,0)) t.pack()
     t.visible = true
+
+    println("[debug] Reached the end of startup() method.")
+  }
+
+  override def quit(): Unit = { shutdown(); sys.exit(0) }
+  
+  override def shutdown(): Unit = {
+    println("[debug] Calling the shutdown() method.")
+    
+    val t = top
+    t.visible = false
+    t.dispose()
+
+    println("[debug] Reached the end of shutdown() method.")
   }
 
   // Methods from https://github.com/scala/scala-swing/blob/a41024194d5a034ecac304aeecd1354b50e05700/src/main/scala/scala/swing/SimpleSwingApplication.scala#L25
@@ -42,6 +59,8 @@ object Main extends SwingApplication:
     preferredSize = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT)
     minimumSize = new Dimension(WINDOW_WIDTH - 800, WINDOW_HEIGHT - 300)
     resizable = true
+
+    override def closeOperation(): Unit = quit()
 
     contents = new BorderPanel {
       add(newui.LeftBarView, BorderPanel.Position.West)
@@ -59,7 +78,7 @@ object Main extends SwingApplication:
 
       reactions += {
         case KeyPressed(_, Key.W, Modifier.Control, _) =>
-          dispose()
+          closeOperation()
       }
 
       focusable = true
